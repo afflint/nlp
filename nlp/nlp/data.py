@@ -2,6 +2,7 @@
 import pandas as pd
 from sklearn.datasets import fetch_20newsgroups
 from collections import defaultdict
+import spacy 
 
 
 
@@ -31,3 +32,10 @@ def frequency(corpus: list[str], tokenizer: callable):
         for token in tokenizer(document):
             data[token] += 1
     return pd.Series(data)
+
+def spacy_lemma_tokenizer(text: str, nlp: spacy.language.Language, filter_tokens: list = None):
+    if filter_tokens is None:
+        return [x.lemma_.lower() for x in nlp(text)]
+    else:
+        return [x.lemma_.lower() for x in nlp(text) if x.pos_ not in filter_tokens]
+
