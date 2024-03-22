@@ -38,12 +38,6 @@ Tokenization and normalization methods. Spelling Correction. Logical models of m
 >
 > Jurafsky, D., & Martin, J. H. *Speech and Language Processing: An Introduction to Natural Language Processing*, Computational Linguistics, and Speech Recognition. [Chapters 4-5]
 
-##### Hidden Markov Models, Conditional Random Fields and Expectation Maximization $\sim 3\ hrs$ 
-
-> Wallach, Hanna M. "Conditional random fields: An introduction." Technical Reports (CIS) (2004): 22.
->
-> Jurafsky, D., & Martin, J. H. *Speech and Language Processing: An Introduction to Natural Language Processing*, Computational Linguistics, and Speech Recognition. [Appendix A]
-
 ##### Latent Semantic Indexing and Latent Dirichlet Allocation $\sim 3\ hrs$
 
 > Blei, D. M., Ng, A. Y., & Jordan, M. I. (2003). Latent dirichlet allocation. *Journal of machine Learning research*, *3*(Jan), 993-1022.
@@ -77,6 +71,12 @@ The module addresses the problem of sequence modeling, and presents the basic ne
 This module introduces the Transformer model, which is a neural language model capable of processing textual sequences. An empirical application is discussed; in particular, this example focuses on BERT, which is a Transformer model based on Encoder-Decoder architecture.
 
 > "Speech and Language Processing" (2022), Dan Jurafsky and James H.Martin, Chapters 9, 10, 11
+
+##### Hidden Markov Models, Conditional Random Fields and Expectation Maximization $\sim 3\ hrs$ 
+
+> Wallach, Hanna M. "Conditional random fields: An introduction." Technical Reports (CIS) (2004): 22.
+>
+> Jurafsky, D., & Martin, J. H. *Speech and Language Processing: An Introduction to Natural Language Processing*, Computational Linguistics, and Speech Recognition. [Appendix A]
 
 ##### Text2Images $\sim 3\ hrs$ 
 
