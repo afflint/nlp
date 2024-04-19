@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1500px;
+                 height: 1500px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "u", "label": "u", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "you", "label": "you", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "\u0027d", "label": "\u0027d", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "would", "label": "would", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "friendly", "label": "friendly", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "welcoming", "label": "welcoming", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "attentive", "label": "attentive", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "decent", "label": "decent", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "good", "label": "good", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "price", "label": "price", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "prices", "label": "prices", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "years", "label": "years", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "months", "label": "months", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "weeks", "label": "weeks", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "yrs", "label": "yrs", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "not", "label": "not", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "n\u0027t", "label": "n\u0027t", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "best", "label": "best", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "worst", "label": "worst", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "might", "label": "might", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "\u0027ll", "label": "\u0027ll", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "should", "label": "should", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "advised", "label": "advised", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "told", "label": "told", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "informed", "label": "informed", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "phenomenal", "label": "phenomenal", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "amazing", "label": "amazing", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fantastic", "label": "fantastic", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "four", "label": "four", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "two", "label": "two", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "2", "label": "2", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "3", "label": "3", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "4", "label": "4", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "three", "label": "three", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ca", "label": "ca", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wo", "label": "wo", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "small", "label": "small", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "large", "label": "large", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "several", "label": "several", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "few", "label": "few", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vehicle", "label": "vehicle", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "car", "label": "car", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mins", "label": "mins", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "minutes", "label": "minutes", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "min", "label": "min", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "more", "label": "more", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "less", "label": "less", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bigger", "label": "bigger", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "6", "label": "6", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "super", "label": "super", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "very", "label": "very", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "anything", "label": "anything", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "something", "label": "something", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "outstanding", "label": "outstanding", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "excellent", "label": "excellent", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "exceptional", "label": "exceptional", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "need", "label": "need", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "want", "label": "want", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "\u0027ve", "label": "\u0027ve", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ive", "label": "ive", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "incredible", "label": "incredible", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "awesome", "label": "awesome", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "but", "label": "but", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "although", "label": "although", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "extremely", "label": "extremely", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "will", "label": "will", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wonderful", "label": "wonderful", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "great", "label": "great", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tasty", "label": "tasty", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "delicious", "label": "delicious", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "yummy", "label": "yummy", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "5", "label": "5", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "five", "label": "five", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "10", "label": "10", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "lot", "label": "lot", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ton", "label": "ton", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ask", "label": "ask", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "asked", "label": "asked", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "brunch", "label": "brunch", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "lunch", "label": "lunch", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dinner", "label": "dinner", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "\u0027m", "label": "\u0027m", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "am", "label": "am", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "got", "label": "got", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ordered", "label": "ordered", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "reccommend", "label": "reccommend", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "recommend", "label": "recommend", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "reccomend", "label": "reccomend", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gone", "label": "gone", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "been", "label": "been", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "suggest", "label": "suggest", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "restaurant", "label": "restaurant", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "place", "label": "place", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "star", "label": "star", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "stars", "label": "stars", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "asking", "label": "asking", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "couple", "label": "couple", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "go", "label": "go", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "come", "label": "come", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "shared", "label": "shared", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"from": "u", "sim": 0.7822895646095276, "to": "you", "width": 1}, {"from": "\u0027d", "sim": 0.816220760345459, "to": "would", "width": 1}, {"from": "friendly", "sim": 0.7201101779937744, "to": "welcoming", "width": 1}, {"from": "friendly", "sim": 0.7106851935386658, "to": "attentive", "width": 1}, {"from": "decent", "sim": 0.7467494606971741, "to": "good", "width": 1}, {"from": "price", "sim": 0.7185811996459961, "to": "prices", "width": 1}, {"from": "years", "sim": 0.8312422037124634, "to": "months", "width": 1}, {"from": "years", "sim": 0.7323697209358215, "to": "weeks", "width": 1}, {"from": "years", "sim": 0.7234817743301392, "to": "yrs", "width": 1}, {"from": "not", "sim": 0.7431797981262207, "to": "n\u0027t", "width": 1}, {"from": "best", "sim": 0.7507109642028809, "to": "worst", "width": 1}, {"from": "might", "sim": 0.7306451797485352, "to": "\u0027ll", "width": 1}, {"from": "might", "sim": 0.7810002565383911, "to": "should", "width": 1}, {"from": "advised", "sim": 0.7004197239875793, "to": "told", "width": 1}, {"from": "advised", "sim": 0.7340855598449707, "to": "informed", "width": 1}, {"from": "phenomenal", "sim": 0.7213443517684937, "to": "amazing", "width": 1}, {"from": "phenomenal", "sim": 0.7495104074478149, "to": "fantastic", "width": 1}, {"from": "four", "sim": 0.7257789373397827, "to": "two", "width": 1}, {"from": "four", "sim": 0.7219250202178955, "to": "2", "width": 1}, {"from": "four", "sim": 0.7432230710983276, "to": "3", "width": 1}, {"from": "four", "sim": 0.7337433099746704, "to": "4", "width": 1}, {"from": "four", "sim": 0.8043191432952881, "to": "three", "width": 1}, {"from": "ca", "sim": 0.7141843438148499, "to": "wo", "width": 1}, {"from": "small", "sim": 0.7352603077888489, "to": "large", "width": 1}, {"from": "months", "sim": 0.9156181216239929, "to": "weeks", "width": 1}, {"from": "several", "sim": 0.7016630172729492, "to": "few", "width": 1}, {"from": "vehicle", "sim": 0.778313398361206, "to": "car", "width": 1}, {"from": "mins", "sim": 0.854055643081665, "to": "minutes", "width": 1}, {"from": "mins", "sim": 0.891183078289032, "to": "min", "width": 1}, {"from": "more", "sim": 0.7508170008659363, "to": "less", "width": 1}, {"from": "more", "sim": 0.7391523122787476, "to": "bigger", "width": 1}, {"from": "6", "sim": 0.7220507264137268, "to": "2", "width": 1}, {"from": "6", "sim": 0.7018066644668579, "to": "3", "width": 1}, {"from": "super", "sim": 0.7556930780410767, "to": "very", "width": 1}, {"from": "anything", "sim": 0.730986475944519, "to": "something", "width": 1}, {"from": "two", "sim": 0.8123919367790222, "to": "three", "width": 1}, {"from": "two", "sim": 0.7679923176765442, "to": "2", "width": 1}, {"from": "two", "sim": 0.7454348206520081, "to": "3", "width": 1}, {"from": "outstanding", "sim": 0.8181070685386658, "to": "excellent", "width": 1}, {"from": "outstanding", "sim": 0.7151543498039246, "to": "fantastic", "width": 1}, {"from": "outstanding", "sim": 0.7642029523849487, "to": "exceptional", "width": 1}, {"from": "need", "sim": 0.7154611349105835, "to": "want", "width": 1}, {"from": "\u0027ve", "sim": 0.7148601412773132, "to": "ive", "width": 1}, {"from": "informed", "sim": 0.8044912815093994, "to": "told", "width": 1}, {"from": "incredible", "sim": 0.7789199352264404, "to": "amazing", "width": 1}, {"from": "incredible", "sim": 0.7315595746040344, "to": "awesome", "width": 1}, {"from": "min", "sim": 0.8631280660629272, "to": "minutes", "width": 1}, {"from": "three", "sim": 0.7152920365333557, "to": "2", "width": 1}, {"from": "three", "sim": 0.7843806743621826, "to": "3", "width": 1}, {"from": "three", "sim": 0.7152609825134277, "to": "4", "width": 1}, {"from": "but", "sim": 0.7100600600242615, "to": "although", "width": 1}, {"from": "extremely", "sim": 0.8171674013137817, "to": "very", "width": 1}, {"from": "\u0027ll", "sim": 0.8591268062591553, "to": "will", "width": 1}, {"from": "wonderful", "sim": 0.7275450825691223, "to": "great", "width": 1}, {"from": "wonderful", "sim": 0.7319568395614624, "to": "fantastic", "width": 1}, {"from": "tasty", "sim": 0.7643429636955261, "to": "delicious", "width": 1}, {"from": "tasty", "sim": 0.7628521919250488, "to": "yummy", "width": 1}, {"from": "5", "sim": 0.7534767985343933, "to": "3", "width": 1}, {"from": "5", "sim": 0.7471506595611572, "to": "five", "width": 1}, {"from": "5", "sim": 0.7311400771141052, "to": "4", "width": 1}, {"from": "5", "sim": 0.7162393927574158, "to": "10", "width": 1}, {"from": "would", "sim": 0.7333258986473083, "to": "should", "width": 1}, {"from": "excellent", "sim": 0.7029240131378174, "to": "great", "width": 1}, {"from": "excellent", "sim": 0.7448881268501282, "to": "amazing", "width": 1}, {"from": "excellent", "sim": 0.7385266423225403, "to": "fantastic", "width": 1}, {"from": "excellent", "sim": 0.7035358548164368, "to": "exceptional", "width": 1}, {"from": "great", "sim": 0.7216877341270447, "to": "good", "width": 1}, {"from": "great", "sim": 0.7548349499702454, "to": "fantastic", "width": 1}, {"from": "lot", "sim": 0.700236439704895, "to": "ton", "width": 1}, {"from": "ask", "sim": 0.7073697447776794, "to": "asked", "width": 1}, {"from": "brunch", "sim": 0.7248569130897522, "to": "lunch", "width": 1}, {"from": "dinner", "sim": 0.729832649230957, "to": "lunch", "width": 1}, {"from": "\u0027m", "sim": 0.9232991933822632, "to": "am", "width": 1}, {"from": "got", "sim": 0.7268702387809753, "to": "ordered", "width": 1}, {"from": "less", "sim": 0.7321107983589172, "to": "bigger", "width": 1}, {"from": "yummy", "sim": 0.7300768494606018, "to": "delicious", "width": 1}, {"from": "2", "sim": 0.8205332159996033, "to": "3", "width": 1}, {"from": "2", "sim": 0.7648930549621582, "to": "4", "width": 1}, {"from": "reccommend", "sim": 0.7135180830955505, "to": "recommend", "width": 1}, {"from": "reccommend", "sim": 0.7548760771751404, "to": "reccomend", "width": 1}, {"from": "gone", "sim": 0.7012465000152588, "to": "been", "width": 1}, {"from": "reccomend", "sim": 0.8169388175010681, "to": "recommend", "width": 1}, {"from": "reccomend", "sim": 0.7729106545448303, "to": "suggest", "width": 1}, {"from": "suggest", "sim": 0.8050366044044495, "to": "recommend", "width": 1}, {"from": "restaurant", "sim": 0.7123481631278992, "to": "place", "width": 1}, {"from": "star", "sim": 0.7829738259315491, "to": "stars", "width": 1}, {"from": "4", "sim": 0.8229367733001709, "to": "3", "width": 1}, {"from": "asking", "sim": 0.7040346264839172, "to": "asked", "width": 1}, {"from": "3", "sim": 0.7147467732429504, "to": "five", "width": 1}, {"from": "awesome", "sim": 0.8409585356712341, "to": "amazing", "width": 1}, {"from": "awesome", "sim": 0.7153230309486389, "to": "fantastic", "width": 1}, {"from": "amazing", "sim": 0.8154982328414917, "to": "fantastic", "width": 1}, {"from": "few", "sim": 0.8422249555587769, "to": "couple", "width": 1}, {"from": "go", "sim": 0.717246413230896, "to": "come", "width": 1}, {"from": "shared", "sim": 0.739067792892456, "to": "ordered", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
