@@ -33,15 +33,9 @@ Exam dates are just for the registration of the final grade. The project discuss
    2. After the date of your subscription is expired
 3. Setup an appointment and discuss your work
 
-When contacting Prof. Ferrara for the appointment, **provide the following information**:
+**IMPORTANT**: **how to contact Prof. Ferrara and submit the project**: 
 
-1. The exam date you are subscribed to
-2. The pdf version of your report
-3. The link to the GitHub repository containing the code for the project
-
-**Example**: you subscribe the exam date of [Month] [Day]. **Anytime after [Month] [Day]**, when the **project is ready**, you will contact Prof. Ferrara and set an appointment. You discuss the project during the appointment.
-
-If you are **interested in doing your final master thesis on these topics**, the final project may be a preliminary work in view of the thesis. In this case, discuss the contents with Prof. Ferrara during the project discussion.
+The procedure is reported [here on the Ariel web site](https://myariel.unimi.it/mod/forum/discuss.php?d=66173).
 
 ## Structure of the paper
 
