@@ -99,3 +99,110 @@ No model is neutral or fully transparent, and no course is complete without conf
 22. **Interpretability: XAI & mechanistic interpretability**
 23. **Bias & stereotypes: cultural and statistical bias in language models**
 24. **Frameworks for deployment (llama.cpp, vLLM, MLX LM) & project kickoff**
+
+
+# Essential Bibliography
+
+## Part I — From Text to Numbers
+
+- Salton, G., & Buckley, C. (1988). *Term-weighting approaches in automatic text retrieval.* Information Processing & Management, 24(5), 513–523.
+  [https://doi.org/10.1016/0306-4573(88)90021-0](https://doi.org/10.1016/0306-4573(88)90021-0)
+  — The classic reference for TF-IDF weighting.
+
+- Sennrich, R., Haddow, B., & Birch, A. (2016). *Neural Machine Translation of Rare Words with Subword Units.* ACL.
+  [https://arxiv.org/abs/1508.07909](https://arxiv.org/abs/1508.07909)
+  — Introduces Byte-Pair Encoding (BPE) for subword tokenization.
+
+---
+
+## Part II — Learned Representations
+
+- Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). *Efficient Estimation of Word Representations in Vector Space.* arXiv:1301.3781.
+  [https://arxiv.org/abs/1301.3781](https://arxiv.org/abs/1301.3781)
+  — The original Word2Vec paper (CBOW and Skip-gram).
+
+- Pennington, J., Socher, R., & Manning, C. D. (2014). *GloVe: Global Vectors for Word Representation.* EMNLP.
+  [https://aclanthology.org/D14-1162.pdf](https://aclanthology.org/D14-1162.pdf)
+  — Word embeddings from global co-occurrence statistics, complementary to Word2Vec.
+
+---
+
+## Part III — Language Modeling
+
+- Bengio, Y., Ducharme, R., Vincent, P., & Jauvin, C. (2003). *A Neural Probabilistic Language Model.* Journal of Machine Learning Research, 3, 1137–1155.
+  [https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf](https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)
+  — The first neural language model, bridging statistical and neural approaches.
+
+---
+
+## Part IV — Sequences to Transformers
+
+- Hochreiter, S., & Schmidhuber, J. (1997). *Long Short-Term Memory.* Neural Computation, 9(8), 1735–1780.
+  [https://doi.org/10.1162/neco.1997.9.8.1735](https://doi.org/10.1162/neco.1997.9.8.1735)
+  — Introduces LSTM, addressing the limitations of vanilla RNNs.
+
+- Sutskever, I., Vinyals, O., & Le, Q. V. (2014). *Sequence to Sequence Learning with Neural Networks.* NeurIPS.
+  [https://arxiv.org/abs/1409.3215](https://arxiv.org/abs/1409.3215)
+  — Encoder-decoder framework for sequence generation.
+
+- Bahdanau, D., Cho, K., & Bengio, Y. (2015). *Neural Machine Translation by Jointly Learning to Align and Translate.* ICLR.
+  [https://arxiv.org/abs/1409.0473](https://arxiv.org/abs/1409.0473)
+  — Introduces attention as a fix for the fixed-length bottleneck in seq2seq.
+
+- Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). *Attention Is All You Need.* NeurIPS.
+  [https://arxiv.org/abs/1706.03762](https://arxiv.org/abs/1706.03762)
+  — The Transformer architecture.
+
+---
+
+## Part V — Modern Architectures
+
+- Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.* NAACL.
+  [https://arxiv.org/abs/1810.04805](https://arxiv.org/abs/1810.04805)
+
+- Radford, A., Wu, J., Child, R., et al. (2019). *Language Models are Unsupervised Multitask Learners.* OpenAI (GPT-2 technical report).
+  [https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+
+- Brown, T. B., Mann, B., Ryder, N., et al. (2020). *Language Models are Few-Shot Learners.* NeurIPS.
+  [https://arxiv.org/abs/2005.14165](https://arxiv.org/abs/2005.14165)
+  — GPT-3 and the emergence of in-context learning.
+
+---
+
+## Part VI — From Pretrained Model to Usable System
+
+- Hu, E. J., Shen, Y., Wallis, P., et al. (2021). *LoRA: Low-Rank Adaptation of Large Language Models.* arXiv:2106.09685.
+  [https://arxiv.org/abs/2106.09685](https://arxiv.org/abs/2106.09685)
+
+- Ouyang, L., Wu, J., Jiang, X., et al. (2022). *Training Language Models to Follow Instructions with Human Feedback.* NeurIPS.
+  [https://arxiv.org/abs/2203.02155](https://arxiv.org/abs/2203.02155)
+  — InstructGPT; the paper behind instruction tuning and RLHF.
+
+- Wei, J., Wang, X., Schuurmans, D., et al. (2022). *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.* NeurIPS.
+  [https://arxiv.org/abs/2201.11903](https://arxiv.org/abs/2201.11903)
+
+- Lewis, P., Perez, E., Piktus, A., et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* NeurIPS.
+  [https://arxiv.org/abs/2005.11401](https://arxiv.org/abs/2005.11401)
+  — Reference for the brief mention of RAG.
+
+- Radford, A., Kim, J. W., Hallacy, C., et al. (2021). *Learning Transferable Visual Models From Natural Language Supervision.* ICML.
+  [https://arxiv.org/abs/2103.00020](https://arxiv.org/abs/2103.00020)
+  — CLIP; entry point for the multimodal lesson.
+
+---
+
+## Part VII — Problems and Practice
+
+- Lundberg, S. M., & Lee, S.-I. (2017). *A Unified Approach to Interpreting Model Predictions.* NeurIPS.
+  [https://arxiv.org/abs/1705.07874](https://arxiv.org/abs/1705.07874)
+  — SHAP, a unifying framework for feature-attribution explanations.
+
+- Bolukbasi, T., Chang, K.-W., Zou, J., Saligrama, V., & Kalai, A. (2016). *Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings.* NeurIPS.
+  [https://arxiv.org/abs/1607.06520](https://arxiv.org/abs/1607.06520)
+
+- Caliskan, A., Bryson, J. J., & Narayanan, A. (2017). *Semantics Derived Automatically from Language Corpora Contain Human-like Biases.* Science, 356(6334), 183–186.
+  [https://arxiv.org/abs/1608.07187](https://arxiv.org/abs/1608.07187)
+
+- Olah, C., Cammarata, N., Schubert, L., et al. (2020). *Zoom In: An Introduction to Circuits.* Distill.
+  [https://distill.pub/2020/circuits/zoom-in/](https://distill.pub/2020/circuits/zoom-in/)
+  — Foundational text for mechanistic interpretability.
