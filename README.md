@@ -8,9 +8,9 @@
 
 ### Lecturer: Dott.ssa Elisabetta Rocchetti
 
-## AY 2025-26
-Università degli Studi di Milano - [Course presentation](https://www.unimi.it/en/education/degree-programme-courses/2025/natural-language-processing-0)
+## AY 2026-27
+Università degli Studi di Milano - [Course presentation](https://www.unimi.it/en/education/degree-programme-courses/2027/natural-language-processing)
 
-All the relavant code and examples are available at [the 2025-26 folder](./2025-26)
+All the relavant code and examples are available at [the 2026-27 folder](./2026-27)
 
 The other folders are available for further examples and materials.
