@@ -95,6 +95,7 @@ A pretrained language model on its own is not yet a useful assistant or tool. Th
 No model is neutral or fully transparent, and no course is complete without confronting that directly: what can we actually explain about a model's behavior (XAI, mechanistic interpretability), and what cultural and statistical biases do these models encode and amplify? The course closes on practical ground, surveying the frameworks used to deploy LLMs in the real world and kicking off the final project.
 
 **Lessons:**
+
 22. **Interpretability: XAI & mechanistic interpretability**
 23. **Bias & stereotypes: cultural and statistical bias in language models**
 24. **Frameworks for deployment (llama.cpp, vLLM, MLX LM) & project kickoff**
