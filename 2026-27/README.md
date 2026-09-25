@@ -12,7 +12,7 @@ This opening lesson sets the stage before any technical content: what this cours
 
 **Lessons:**
 
-1. **Course introduction: goals, narrative arc, project and assessment overview**
+1. **Course introduction: goals, narrative arc, project and assessment overview** 
 
 ---
 
@@ -22,10 +22,10 @@ Before a machine can do anything with language, text has to be broken down into 
 
 **Lessons:**
 
-2. **From text to tokens: character/word/sentence trade-offs and the notion of "token"**
-3. **Tokenization approaches: linguistic (rule-based) vs. statistical (WordPiece/BPE)**
-4. **Representing text numerically: feature selection, weighting, and the vector space (TF-IDF)**
-5. **From vectors to classification: neural networks as classifiers, and how we evaluate them (precision, recall, F1, a first look at perplexity)**
+2. **From text to tokens: character/word/sentence trade-offs and the notion of "token"** [Notebook](./L0.0-from-text-to-tokens.ipynb)
+3. **Tokenization approaches: linguistic (rule-based) vs. statistical (WordPiece/BPE)** [Notebook](./L0.1-tokenization-approaches.ipynb)
+4. **Representing text numerically: feature selection, weighting, and the vector space (TF-IDF)** [Notebook](./L0.2-representing-text-numerically.ipynb)
+5. **From vectors to classification: neural networks as classifiers, and how we evaluate them (precision, recall, F1, a first look at perplexity)** [Notebook](./L0.3-from-vectors-to-classification.ipynb)
 
 ---
 
