@@ -1,4 +1,5 @@
 import json
+import os
 import re
 from collections import Counter
 
@@ -183,3 +184,92 @@ def frequency_perplexity(train_following, following, vocabulary_size: int):
     frequency = np.bincount(train_following, minlength=vocabulary_size) + 1
     frequency = frequency / frequency.sum()
     return float(np.exp(-np.log(frequency[following]).mean()))
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Networks that look at a window of the k previous words (L0.8)
+# ---------------------------------------------------------------------------------------------------------------------
+
+def windows(sentences, k: int, start: int = 1):
+    """For each word to be predicted (the words after <s>, with </s>): the k previous words (the sentence is padded on the left
+    with <s>), the word, and its position in the sentence (0 for the first word after <s>). `sentences` are lists of ids
+    that begin with <s> and end with </s>. Returns two integer matrices (positions, k) and vectors (positions,)."""
+    rows, targets, places = [], [], []
+    for s in sentences:
+        padded = [start] * k + list(s)
+        for t in range(k + 1, len(padded)):
+            rows.append(padded[t - k:t])
+            targets.append(padded[t])
+            places.append(t - k - 1)
+    return (np.array(rows, dtype=np.int64).reshape(len(targets), k), np.array(targets, dtype=np.int64),
+            np.array(places, dtype=np.int64))
+
+
+class Window(nn.Module):
+    """Predicts the next word from the k previous ones. Every word of the window is replaced by its embedding (the same table
+    for all the positions); the k embeddings are then combined, either by the `mean` (the order is lost) or by `concat`enating
+    them (one block of the input for each position). If `hidden` is given there is a layer with ReLU before the output layer."""
+
+    def __init__(self, vocabulary_size: int, k: int, d: int = 64, hidden: int = 128, combine: str = "concat"):
+        super().__init__()
+        assert combine in ("mean", "concat")
+        self.k, self.combine = k, combine
+        self.embed = nn.Embedding(vocabulary_size, d)
+        width = k * d if combine == "concat" else d
+        self.hidden = nn.Sequential(nn.Linear(width, hidden), nn.ReLU()) if hidden else None
+        self.out = nn.Linear(hidden or width, vocabulary_size)
+
+    def forward(self, window):
+        e = self.embed(window)
+        e = e.flatten(1) if self.combine == "concat" else e.mean(1)
+        return self.out(self.hidden(e) if self.hidden is not None else e)
+
+
+def log_probabilities(model, window, following, batch: int = 50_000):
+    """log P(word | window) of each example, as a numpy vector."""
+    out = []
+    with torch.no_grad():
+        for i in range(0, len(window), batch):
+            logp = torch.log_softmax(model(torch.as_tensor(window[i:i + batch])), dim=-1)
+            out.append(logp[torch.arange(len(logp)), torch.as_tensor(following[i:i + batch])].numpy())
+    return np.concatenate(out)
+
+
+def fit_window(vocabulary_size: int, k: int, train, validation, combine: str = "concat", hidden: int = 128, d: int = 64,
+               seed: int = 0, learning_rate: float = 0.005, epochs: int = 20, patience: int = 2, cache: str = None):
+    """Trains a `Window` with early stopping on the validation sentences (lists of ids) and returns it with the weights of the
+    best epoch, together with the history. The examples are built with the function `windows`.
+    If `cache` is the path of a file, the trained network is saved there, and loaded from there when the file exists (it only
+    saves time: the file does not record the data or the settings, so it must be deleted if they change)."""
+    if cache is not None and os.path.exists(cache):
+        saved = torch.load(cache)
+        model = Window(vocabulary_size, k, d, hidden, combine)
+        model.load_state_dict(saved["state"])
+        model.best_epoch = saved["best_epoch"]
+        return model, saved["history"]
+    torch.manual_seed(seed)
+    model = Window(vocabulary_size, k, d, hidden, combine)
+    history = train_next_word(model, windows(train, k)[:2], windows(validation, k)[:2], epochs=epochs,
+                              learning_rate=learning_rate, patience=patience)
+    model.load_state_dict(model.best_state)
+    if cache is not None:
+        os.makedirs(os.path.dirname(cache), exist_ok=True)
+        torch.save({"state": model.state_dict(), "best_epoch": model.best_epoch, "history": history}, cache)
+    return model, history
+
+
+def generate_window(model, vocabulary: Vocabulary, rng=None, temperature: float = 1.0, max_words: int = 30):
+    """Writes a sentence starting from <s>, with the k previous words as the only memory. Greedy if there is no random generator."""
+    ids = [vocabulary.start] * model.k
+    with torch.no_grad():
+        while len(ids) - model.k < max_words:
+            scores = model(torch.tensor([ids[-model.k:]]))[0]
+            if rng is None:
+                word = int(scores.argmax())
+            else:
+                p = torch.softmax(scores / temperature, dim=-1).numpy().astype("float64")
+                word = int(rng.choice(len(p), p=p / p.sum()))
+            if word == vocabulary.end:
+                break
+            ids.append(word)
+    return ids[model.k:]
