@@ -14,6 +14,8 @@ import numpy as np
 
 SPECIALS = ["<pad>", "<s>", "</s>", "<unk>", "<mask>", "<sep>"]
 PAD, BOS, EOS, UNK, MASK, SEP = range(6)
+COMPARISON_WORDS = ("same", "yes", "no")
+PARITY_WORDS = ("even", "yes", "no")
 
 # the first four names are those of L0.9; female and male names are then balanced
 GENDER = {"anna": "f", "marco": "m", "luca": "m", "sara": "f", "giulia": "f", "paolo": "m", "elena": "f", "diego": "m",
@@ -173,6 +175,9 @@ class ToyWorld:
         # about the same person, the second can use a pronoun (to resolve it the model has to look back).
         rng = np.random.default_rng(rng)
         facts = self._document_facts(rng, n_people, n_facts, interleave)
+        return self._write(rng, facts, pronoun_rate, language)
+
+    def _write(self, rng, facts, pronoun_rate=0.7, language="A"):
         tokens = ["<s>"]
         for i, f in enumerate(facts):
             use_pronoun = i > 0 and facts[i - 1][0] == f[0] and rng.random() < pronoun_rate
@@ -198,6 +203,29 @@ class ToyWorld:
             out.append(tokens + [".", who[asked], lang["question_word"][relation], what[asked], "</s>"])
         return out
 
+    def comparison(self, rng, n, p_same=0.5):
+        # two drinks and the question `same`: `<s> tea tea same yes </s>`. The answer (`yes` or `no`) says whether the two
+        # drinks are the same; the network has to read the two words separately. The vocabulary needs the extra words
+        # `same`, `yes`, `no` (world.vocabulary(extra=toyworld.COMPARISON_WORDS)).
+        rng = np.random.default_rng(rng)
+        out = []
+        for _ in range(n):
+            x = str(rng.choice(self.values["drink"]))
+            y = x if rng.random() < p_same else str(rng.choice(self.values["drink"]))
+            out.append(["<s>", x, y, "same", "yes" if x == y else "no", "</s>"])
+        return out
+
+    def parity(self, rng, n, items=4, drinks=("tea", "milk", "coffee"), counted="tea"):
+        # a list of drinks and the question `even`: `<s> milk tea tea coffee tea even no </s>`. The answer says whether the
+        # number of `counted` drinks in the list is even. The network has to count, and to answer from the count. The vocabulary
+        # needs the extra words `even`, `yes`, `no` (world.vocabulary(extra=toyworld.PARITY_WORDS)).
+        rng = np.random.default_rng(rng)
+        out = []
+        for _ in range(n):
+            listed = [str(d) for d in rng.choice(list(drinks), size=items)]
+            out.append(["<s>"] + listed + [counted, "even", "yes" if listed.count(counted) % 2 == 0 else "no", "</s>"])
+        return out
+
     def translation(self, rng, n, **options):
         # pairs (source in A, target in B) of the same document: same facts, same pronouns, other words and order
         rng = np.random.default_rng(rng)
@@ -206,3 +234,53 @@ class ToyWorld:
             seed = int(rng.integers(2**31))
             pairs.append((self.document(seed, language="A", **options), self.document(seed, language="B", **options)))
         return pairs
+
+    # ---- L1.3: reading a document back (BERT)
+    def sentences(self, document):
+        # the sentences of a document of language A as dicts: position of the subject, the person, the relation and the value.
+        # A pronoun stands for the person of the previous sentence.
+        out, i, person = [], 1, None
+        relation_of = {w: r for r, w in LANGUAGE_A["question_word"].items()}
+        while document[i] != "</s>":
+            j = document.index(".", i)
+            if document[i] in self.people:
+                person = document[i]
+            out.append({"subject": i, "person": person, "relation": relation_of[document[i + 1]], "value": document[j - 1],
+                        "pronoun": document[i] not in self.people, "end": j})
+            i = j + 1
+        return out
+
+    def word_kinds(self, document):
+        # the kind of each token of a document: special, name, pronoun, relation (the verb of the template), value, other
+        kinds = ["special" if t in SPECIALS else "other" for t in document]
+        for s in self.sentences(document):
+            kinds[s["subject"]] = "pronoun" if s["pronoun"] else "name"
+            kinds[s["subject"] + 1] = "relation"
+            kinds[s["end"] - 1] = "value"
+        return kinds
+
+    def is_true(self, document):
+        # True when every sentence is a fact of this world (and every pronoun has the gender of its person)
+        pronouns = {v: g for g, v in LANGUAGE_A["pronouns"].items()}
+        for s in self.sentences(document):
+            if s["person"] not in self.attributes or self.attributes[s["person"]][s["relation"]] != s["value"]:
+                return False
+            if s["pronoun"] and pronouns[document[s["subject"]]] != self.gender[s["person"]]:
+                return False
+        return True
+
+    def verification(self, rng, n, p_true=0.5, **options):
+        # documents of the world, half of them with one fact whose value is replaced by a wrong one: (documents, labels)
+        # with label 1 for a true document and 0 for a false one
+        rng = np.random.default_rng(rng)
+        documents, labels = [], []
+        for _ in range(n):
+            facts = self._document_facts(rng, options.get("n_people", 2), options.get("n_facts", 3), options.get("interleave", False))
+            label = int(rng.random() < p_true)
+            if not label:
+                k = int(rng.integers(len(facts)))
+                person, relation, value = facts[k]
+                facts[k] = (person, relation, str(rng.choice([v for v in self.values[relation] if v != value])))
+            documents.append(self._write(rng, facts, options.get("pronoun_rate", 0.7)))
+            labels.append(label)
+        return documents, labels
