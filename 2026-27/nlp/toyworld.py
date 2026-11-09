@@ -49,6 +49,7 @@ class WorldConfig:
     relations: tuple = tuple(RELATIONS)
     job_bias: float = 0.0              # probability that a person gets a job that leans to their own gender
     seed: int = 0
+    names: tuple = None                # other names for the people (L1.4): default, the list NAMES; genders alternate f, m
 
 
 class Vocabulary:
@@ -105,15 +106,16 @@ def make_language_b(seed=0):
 
 
 class ToyWorld:
-    def __init__(self, config=None, language_b=None):
+    def __init__(self, config=None, language_b=None, extra_languages=None):
         self.config = config or WorldConfig()
         c = self.config
         rng = np.random.default_rng(c.seed)
-        self.people = NAMES[:c.n_people]
-        self.gender = {p: GENDER[p] for p in self.people}
+        self.people = list(c.names)[:c.n_people] if c.names else NAMES[:c.n_people]
+        self.gender = {p: GENDER.get(p, "fm"[i % 2]) for i, p in enumerate(self.people)}
         self.values = {"drink": DRINKS[:c.n_drinks], "job": list(JOBS), "city": CITIES[:c.n_cities],
                        "color": COLORS[:c.n_colors]}
         self.language = {"A": LANGUAGE_A, "B": language_b or make_language_b(c.seed)}
+        self.language.update(extra_languages or {})           # L1.5: other languages, e.g. {"C": make_language_b(7)}
         self.attributes = {p: {} for p in self.people}
         for p in self.people:
             for r in c.relations:
@@ -226,13 +228,13 @@ class ToyWorld:
             out.append(["<s>"] + listed + [counted, "even", "yes" if listed.count(counted) % 2 == 0 else "no", "</s>"])
         return out
 
-    def translation(self, rng, n, **options):
-        # pairs (source in A, target in B) of the same document: same facts, same pronouns, other words and order
+    def translation(self, rng, n, target="B", **options):
+        # pairs (source in A, target in `target`, B by default) of the same document: same facts, same pronouns, other words and order
         rng = np.random.default_rng(rng)
         pairs = []
         for _ in range(n):
             seed = int(rng.integers(2**31))
-            pairs.append((self.document(seed, language="A", **options), self.document(seed, language="B", **options)))
+            pairs.append((self.document(seed, language="A", **options), self.document(seed, language=target, **options)))
         return pairs
 
     # ---- L1.3: reading a document back (BERT)

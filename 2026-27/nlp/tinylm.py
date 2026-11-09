@@ -1,5 +1,8 @@
 # The small Transformer of the LLM part of the course (L1.x onward). The model grows from notebook to notebook:
 # each notebook adds an ingredient to the code of this module. It works on the data of toyworld.py.
+import copy
+import os
+
 import numpy as np
 
 
@@ -215,10 +218,10 @@ class TinyTransformer(nn.Module):
 
 
 # ---- L1.1: a language model on all the tokens, and autoregressive generation
-def fit_lm(sequences, seed=0, steps=6000, lr=3e-3, batch_size=128, model_class=None, **model_kwargs):
+def fit_lm(sequences, seed=0, steps=6000, lr=3e-3, batch_size=128, model_class=None, callback=None, checkpoints=(), vocabulary_size=None, **model_kwargs):
     # next-token prediction on every position (the padding is ignored); `sequences` is a tensor of word indices
     torch.manual_seed(seed)
-    model = (model_class or TinyTransformer)(int(sequences.max()) + 1, **model_kwargs)
+    model = (model_class or TinyTransformer)(vocabulary_size or int(sequences.max()) + 1, **model_kwargs)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01)
     schedule = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, total_steps=steps)
     generator = torch.Generator().manual_seed(seed)
@@ -232,6 +235,8 @@ def fit_lm(sequences, seed=0, steps=6000, lr=3e-3, batch_size=128, model_class=N
         optimizer.step()
         schedule.step()
         losses.append(loss.item())
+        if callback is not None and len(losses) in checkpoints:
+            callback(len(losses), model)                    # L1.4: measure something while the network trains
     model.loss_curve = np.array(losses).reshape(-1, 100).mean(axis=1)
     return model
 
@@ -459,7 +464,7 @@ def mask_tokens(tokens, generator, rate=0.15, vocabulary_size=None, only_mask=Fa
     return inputs, torch.where(pick, tokens, torch.full_like(tokens, -100))
 
 
-def fit_mlm(tokens, vocabulary_size, seed=0, steps=3000, lr=3e-3, batch_size=128, **model_kwargs):
+def fit_mlm(tokens, vocabulary_size, seed=0, steps=3000, lr=3e-3, batch_size=128, callback=None, checkpoints=(), **model_kwargs):
     # pre-training: at every step a batch of documents is corrupted again (new masks each time), loss on the picked words only
     torch.manual_seed(seed)
     model = TinyBERT(vocabulary_size, **model_kwargs)
@@ -476,6 +481,8 @@ def fit_mlm(tokens, vocabulary_size, seed=0, steps=3000, lr=3e-3, batch_size=128
         optimizer.step()
         schedule.step()
         losses.append(loss.item())
+        if callback is not None and len(losses) in checkpoints:
+            callback(len(losses), model)
     model.loss_curve = np.array(losses).reshape(-1, 100).mean(axis=1) if steps % 100 == 0 else np.array(losses)
     return model
 
@@ -513,3 +520,374 @@ def fill_blank(model, tokens, positions):
     with torch.no_grad():
         scores = model(inputs)[rows, positions].softmax(dim=-1)
     return scores.argmax(dim=-1), scores
+
+
+# ---- L1.4: GPT. One stack of blocks that reads a single sequence `prefix <sep> continuation`, trained to write the continuation.
+class DecoderOnly(nn.Module):
+    # embeddings + position, EncoderBlock x layers whose mask is chosen here, a final LayerNorm and an output layer. With
+    # reading="causal" (GPT) every position reads the ones on its left, the prefix included; "bidirectional" lets the positions of
+    # the prefix (up to and including `sep`) read each other on both sides, the continuation stays causal (prefix-LM); "isolated"
+    # lets the positions of the prefix read only themselves, the continuation reads everything on its left.
+    def __init__(self, vocabulary_size, d=32, layers=4, heads=2, mlp=4, max_length=64, reading="causal", sep=5):
+        super().__init__()
+        self.reading, self.sep = reading, sep
+        self.embedding, self.position = nn.Embedding(vocabulary_size, d), nn.Embedding(max_length, d)
+        self.blocks = nn.ModuleList([EncoderBlock(d, heads, mlp) for _ in range(layers)])
+        self.norm = nn.LayerNorm(d)
+        self.unembed = nn.Linear(d, vocabulary_size)
+
+    def allowed(self, tokens):
+        # (batch, T, T): True where the row may read the column
+        B, T = tokens.shape
+        causal = (~torch.triu(torch.ones(T, T, dtype=torch.bool), 1))[None].expand(B, -1, -1)
+        if self.reading == "causal":
+            return causal
+        inside = torch.arange(T)[None] <= (tokens == self.sep).int().argmax(dim=1)[:, None]      # <s> source <sep>
+        both = inside[:, :, None] & inside[:, None, :]
+        if self.reading == "bidirectional":
+            return causal | both
+        return (causal & ~both) | (both & torch.eye(T, dtype=torch.bool)[None])
+
+    def forward(self, tokens, keep_weights=False):
+        x = self.embedding(tokens) + self.position(torch.arange(tokens.shape[1]))
+        allowed = self.allowed(tokens)
+        for block in self.blocks:
+            x = block(x, allowed, keep_weights)
+        return self.unembed(self.norm(x))
+
+    def attention_maps(self, tokens):
+        with torch.no_grad():
+            self(tokens, keep_weights=True)
+        return [block.attention.weights for block in self.blocks]
+
+    def n_parameters(self):
+        return sum(p.numel() for p in self.parameters())
+
+
+def fit_continuation(sequences, sep, seed=0, steps=1500, lr=3e-3, batch_size=64, model_class=None, vocabulary_size=None, **model_kwargs):
+    # next-word prediction where the loss counts only the words after `sep` (the source is read, not predicted)
+    torch.manual_seed(seed)
+    model = (model_class or DecoderOnly)(vocabulary_size or int(sequences.max()) + 1, sep=sep, **model_kwargs)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01)
+    schedule = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, total_steps=steps)
+    generator = torch.Generator().manual_seed(seed)
+    start = (sequences == sep).int().argmax(dim=1)
+    losses = []
+    for _ in range(steps):
+        i = torch.randint(len(sequences), (batch_size,), generator=generator)
+        x = sequences[i]
+        target = x[:, 1:].clone()
+        target[torch.arange(target.shape[1])[None] < start[i][:, None]] = 0          # position t predicts x[t + 1]: from `sep` on
+        logits = model(x[:, :-1])
+        loss = nn.functional.cross_entropy(logits.reshape(-1, logits.shape[-1]), target.reshape(-1), ignore_index=0)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        schedule.step()
+        losses.append(loss.item())
+    model.loss_curve = np.array(losses).reshape(-1, 100).mean(axis=1) if steps % 100 == 0 else np.array(losses)
+    return model
+
+
+def complete(model, sequences, sep, eos=2):
+    # greedy writing of the continuation of each `prefix <sep>`. The sequences are grouped by the length of the prefix (the
+    # positions are absolute, a padded batch would shift them). Returns a list of tensors, one per sequence.
+    start = (sequences == sep).int().argmax(dim=1)
+    out = [None] * len(sequences)
+    longest = model.position.num_embeddings
+    with torch.no_grad():
+        for length in start.unique().tolist():
+            rows = (start == length).nonzero().flatten()
+            x = sequences[rows][:, : length + 1]
+            while x.shape[1] < min(sequences.shape[1], longest):
+                x = torch.cat([x, model(x)[:, -1].argmax(dim=-1, keepdim=True)], dim=1)
+                if (x == eos).any(dim=1).all():
+                    break
+            for j, r in enumerate(rows.tolist()):
+                out[r] = x[j]
+    return out
+
+
+def completion_accuracy(model, sequences, sep, eos=2):
+    # the share of continuations that are exactly right and of words right at the right place
+    written = complete(model, sequences, sep, eos)
+    exact, words = [], []
+    for w, t in zip(written, sequences):
+        first, last = (t == sep).nonzero()[0].item() + 1, (t == eos).nonzero()[0].item() + 1
+        right, mine = t[first:last], w[first:first + (last - first)]
+        n = min(len(right), len(mine))
+        exact.append(len(mine) == len(right) and bool((mine == right).all()))
+        words.append((mine[:n] == right[:n]).sum().item() / len(right))
+    return float(np.mean(exact)), float(np.mean(words))
+
+
+def hidden_states(model, tokens):
+    # the vectors at the entrance of the network (word + position) and after each block, for every position:
+    # a list of (batch, T, d) tensors; the last one is the output of the final normalization, the one that the output layer reads
+    with torch.no_grad():
+        if isinstance(model, TinyBERT):
+            x = model.embedding(tokens) + model.position(torch.arange(tokens.shape[1]))
+            allowed, blocks, final = model.allowed(tokens), model.blocks, model.norm
+            run = lambda block, x: block(x, allowed)
+        elif isinstance(model, DecoderOnly):
+            x = model.embedding(tokens) + model.position(torch.arange(tokens.shape[1]))
+            allowed, blocks, final = model.allowed(tokens), model.blocks, model.norm
+            run = lambda block, x: block(x, allowed)
+        else:                                                                          # TinyTransformer
+            x = model.embedding(tokens) + model.position(torch.arange(tokens.shape[1]))
+            blocks, final = model.layers, model.final
+            run = lambda block, x: block(x)
+        states = [x]
+        for block in blocks:
+            x = run(block, x)
+            states.append(x)
+        states[-1] = final(x)
+    return states
+
+
+def fit_targets(sequences, targets, seed=0, steps=3000, lr=3e-3, batch_size=128, model_class=None, init=None, vocabulary_size=None, **model_kwargs):
+    # next-word prediction where the loss counts only the positions marked in `targets` (a 0/1 tensor with the shape of `sequences`:
+    # targets[i, t] = 1 when the word t of sequence i is a word to predict). `init` is a state dict to start from (a pre-trained network).
+    torch.manual_seed(seed)
+    model = (model_class or TinyTransformer)(vocabulary_size or int(sequences.max()) + 1, **model_kwargs)
+    if init is not None:
+        model.load_state_dict(init)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01)
+    schedule = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, total_steps=steps)
+    generator = torch.Generator().manual_seed(seed)
+    losses = []
+    for _ in range(steps):
+        i = torch.randint(len(sequences), (batch_size,), generator=generator)
+        x, t = sequences[i], targets[i][:, 1:].bool()
+        labels = x[:, 1:].masked_fill(~t, -100)
+        logits = model(x[:, :-1])
+        loss = nn.functional.cross_entropy(logits.reshape(-1, logits.shape[-1]), labels.reshape(-1), ignore_index=-100)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        schedule.step()
+        losses.append(loss.item())
+    model.loss_curve = np.array(losses).reshape(-1, 100).mean(axis=1) if steps % 100 == 0 else np.array(losses)
+    return model
+
+
+# ---- L1.4: choosing the next word, and the key-value cache
+def choose_next(scores, temperature=1.0, top_k=0, top_p=1.0, generator=None):
+    # one word per row of `scores` (batch, vocabulary): temperature, then top-k (keep the k best, 0 = all), then top-p (keep the
+    # smallest set of best words whose probability reaches p), then sampling. temperature=0 gives the most probable word.
+    if temperature == 0:
+        return scores.argmax(dim=-1)
+    scores = scores / temperature
+    if top_k:
+        kth = scores.topk(top_k, dim=-1).values[:, -1:]
+        scores = scores.masked_fill(scores < kth, float("-inf"))
+    if top_p < 1.0:
+        order = scores.argsort(dim=-1, descending=True)
+        sorted_probs = scores.gather(-1, order).softmax(dim=-1)
+        before = sorted_probs.cumsum(dim=-1) - sorted_probs                  # probability of the words that come first
+        drop = torch.zeros_like(scores, dtype=torch.bool).scatter(-1, order, before >= top_p)
+        scores = scores.masked_fill(drop, float("-inf"))
+    return torch.multinomial(scores.softmax(dim=-1), 1, generator=generator)[:, 0]
+
+
+def write_texts(model, prefix, n, steps, seed=0, eos=2, **options):
+    # n texts that continue the same prefix (a list of word indices), written together; after `eos` a text is filled with <pad> (0)
+    generator = torch.Generator().manual_seed(seed)
+    steps = min(steps, model.position.num_embeddings - len(prefix))             # the positions of the network end here
+    texts = torch.tensor([prefix] * n)
+    finished = torch.zeros(n, dtype=torch.bool)
+    with torch.no_grad():
+        for _ in range(steps):
+            word = choose_next(model(texts)[:, -1], generator=generator, **options)
+            word = word.masked_fill(finished, 0)
+            texts = torch.cat([texts, word[:, None]], dim=1)
+            finished |= word == eos
+            if finished.all():
+                break
+    return texts
+
+
+def beam_search(model, prefix, width=4, steps=40, eos=2):
+    # the text with the highest total log-probability found by keeping the `width` best partial texts at each step.
+    # Returns (list of word indices, log-probability).
+    beams = [(list(prefix), 0.0)]
+    done = []
+    steps = min(steps, model.position.num_embeddings - len(prefix))
+    with torch.no_grad():
+        for _ in range(steps):
+            candidates = []
+            for text, score in beams:
+                log_p = model(torch.tensor([text]))[0, -1].log_softmax(dim=-1)
+                best = log_p.topk(width)
+                candidates += [(text + [int(w)], score + float(p)) for p, w in zip(best.values, best.indices)]
+            candidates.sort(key=lambda c: -c[1])
+            beams = []
+            for text, score in candidates[:width]:
+                (done if text[-1] == eos else beams).append((text, score))
+            if not beams or (done and max(s for _, s in done) >= max(s for _, s in beams)):
+                break
+    pool = done + beams
+    return max(pool, key=lambda c: c[1])
+
+
+def forward_cached(model, tokens, cache=None):
+    # the network of TinyTransformer (pre-norm) on the new words only: the keys and values of the words already read are
+    # taken from `cache` (a list with one pair (K, V) per block, shape (batch, heads, words, d_head)) and the new ones are added.
+    # Returns the scores of the new positions and the new cache.
+    offset = 0 if cache is None else cache[0][0].shape[2]
+    B, t = tokens.shape
+    x = model.embedding(tokens) + model.position(torch.arange(offset, offset + t))
+    new_cache = []
+    for i, block in enumerate(model.layers):
+        attention = block.attention
+        q, k, v = attention.qkv(block.ln1(x)).view(B, t, 3, attention.heads, -1).permute(2, 0, 3, 1, 4)
+        if cache is not None:
+            k, v = torch.cat([cache[i][0], k], dim=2), torch.cat([cache[i][1], v], dim=2)
+        new_cache.append((k, v))
+        allowed = torch.arange(k.shape[2])[None, :] <= (offset + torch.arange(t))[:, None]          # the causal mask, shifted
+        out = nn.functional.scaled_dot_product_attention(q, k, v, attn_mask=allowed)
+        x = x + attention.out(out.transpose(1, 2).reshape(B, t, -1))
+        x = x + block.mlp(block.ln2(x))
+    return model.unembed(model.final(x)), new_cache
+
+
+def generate_cached(model, prefix, steps, eos=2):
+    # greedy writing with the cache: the prefix is read once, then one word at a time
+    text = list(prefix)
+    with torch.no_grad():
+        scores, cache = forward_cached(model, torch.tensor([text]))
+        for _ in range(steps):
+            word = int(scores[0, -1].argmax())
+            text.append(word)
+            if word == eos:
+                break
+            scores, cache = forward_cached(model, torch.tensor([[word]]), cache)
+    return text
+
+
+def cached(path, train):
+    # a trained network saved outside the repository: loaded from `path` when the file exists, otherwise trained by calling
+    # `train()` and saved there. Returns (network, loaded). The file keeps the whole object, so it has to be deleted when the data,
+    # the settings or this module change.
+    if path is not None and os.path.exists(path):
+        return torch.load(path, weights_only=False), True
+    model = train()
+    if path is not None:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        torch.save(model, path)
+    return model, False
+
+
+# ---- L1.5: fine-tuning a pre-trained network, and LoRA
+def fine_tune(model, sequences, sep, steps=1500, lr=1e-3, seed=0, batch_size=64):
+    # continues the training of `model` on `prefix <sep> continuation` texts (loss only after `sep`, as fit_continuation) and changes ONLY
+    # the parameters that require a gradient: all of them for a full fine-tuning, the low-rank matrices after add_lora
+    torch.manual_seed(seed)
+    parameters = [p for p in model.parameters() if p.requires_grad]
+    optimizer = torch.optim.AdamW(parameters, lr=lr, weight_decay=0.0)
+    schedule = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, total_steps=steps)
+    generator = torch.Generator().manual_seed(seed)
+    start = (sequences == sep).int().argmax(dim=1)
+    losses = []
+    for _ in range(steps):
+        i = torch.randint(len(sequences), (batch_size,), generator=generator)
+        x = sequences[i]
+        target = x[:, 1:].clone()
+        target[torch.arange(target.shape[1])[None] < start[i][:, None]] = 0
+        logits = model(x[:, :-1])
+        loss = nn.functional.cross_entropy(logits.reshape(-1, logits.shape[-1]), target.reshape(-1), ignore_index=0)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        schedule.step()
+        losses.append(loss.item())
+    model.loss_curve = np.array(losses).reshape(-1, 100).mean(axis=1) if steps % 100 == 0 else np.array(losses)
+    return model
+
+
+def lm_loss(model, sequences):
+    # the mean next-word loss over all the words (the padding is ignored): how well the network still writes plain texts
+    with torch.no_grad():
+        logits = model(sequences[:, :-1])
+        return nn.functional.cross_entropy(logits.reshape(-1, logits.shape[-1]), sequences[:, 1:].reshape(-1), ignore_index=0).item()
+
+
+def n_trainable(model):
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+
+class LoRALinear(nn.Module):
+    # y = W x + (alpha / r) B A x : the matrix W of a linear layer is frozen and the change is the product of two thin matrices,
+    # A (r x d_in) and B (d_out x r). B starts at zero, so at the start the layer is exactly the original one.
+    def __init__(self, base, r, alpha=None):
+        super().__init__()
+        self.base, self.r = base, r
+        self.scale = (alpha or r) / r
+        self.A = nn.Parameter(torch.randn(r, base.in_features) / base.in_features ** 0.5)
+        self.B = nn.Parameter(torch.zeros(base.out_features, r))
+        self.enabled = True
+
+    def forward(self, x):
+        y = self.base(x)
+        return y + (x @ self.A.T @ self.B.T) * self.scale if self.enabled else y
+
+    def delta(self):
+        # the change of the matrix W that this layer adds, (d_out x d_in)
+        return (self.B @ self.A) * self.scale
+
+
+def add_lora(model, r, where=("attention",), alpha=None, seed=0):
+    # freezes every parameter and puts a LoRALinear in place of each linear layer inside the parts of the blocks named in `where`
+    # ("attention": the matrices of the attention; "mlp": the two matrices of the MLP). The only trainable parameters are the A and B.
+    torch.manual_seed(seed)
+    for p in model.parameters():
+        p.requires_grad_(False)
+    for block in model.blocks:
+        for part in where:
+            module = getattr(block, part)
+            for name, child in list(module.named_children()):
+                if isinstance(child, nn.Linear):
+                    setattr(module, name, LoRALinear(child, r, alpha))
+    return model
+
+
+def lora_layers(model):
+    return [m for m in model.modules() if isinstance(m, LoRALinear)]
+
+
+def set_adapter(model, on):
+    # turns the low-rank change of every LoRA layer on or off: off, the network is exactly the pre-trained one
+    for layer in lora_layers(model):
+        layer.enabled = on
+    return model
+
+
+def adapter_state(model):
+    # the numbers of the adapter only (the A and B of each layer), copied: this is what has to be saved for a task
+    return {name: p.detach().clone() for name, p in model.named_parameters() if name.endswith((".A", ".B"))}
+
+
+def load_adapter(model, state):
+    # puts the numbers of an adapter in a network that has LoRA layers of the same shape
+    params = dict(model.named_parameters())
+    with torch.no_grad():
+        for name, value in state.items():
+            params[name].copy_(value)
+    return model
+
+
+def merge_lora(model):
+    # W <- W + (alpha / r) B A in every LoRA layer, which is replaced by a plain linear layer: same outputs, no extra computation
+    model = copy.deepcopy(model)
+    for parent in model.modules():
+        for name, child in list(parent.named_children()):
+            if isinstance(child, LoRALinear):
+                merged = nn.Linear(child.base.in_features, child.base.out_features, bias=child.base.bias is not None)
+                with torch.no_grad():
+                    merged.weight.copy_(child.base.weight + (child.delta() if child.enabled else 0))
+                    if child.base.bias is not None:
+                        merged.bias.copy_(child.base.bias)
+                setattr(parent, name, merged)
+    for p in model.parameters():
+        p.requires_grad_(True)
+    return model
