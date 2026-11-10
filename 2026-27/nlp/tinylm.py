@@ -891,3 +891,109 @@ def merge_lora(model):
     for p in model.parameters():
         p.requires_grad_(True)
     return model
+
+
+# ---- L1.6: instruction tuning, reward model, RLHF (REINFORCE) and DPO
+def sample_responses(model, prefixes, sep, max_new=22, eos=2, length=40, generator=None):
+    # writes a response to each `prefix <sep>` by SAMPLING from the probabilities of the network (temperature 1), not by taking the
+    # most probable word. `prefixes` is a (batch, T0) tensor whose last column is `sep`; the result is (batch, length), padded with 0
+    x = prefixes
+    done = torch.zeros(len(x), dtype=torch.bool)
+    with torch.no_grad():
+        for _ in range(max_new):
+            nxt = torch.multinomial(torch.softmax(model(x)[:, -1], dim=-1), 1, generator=generator).squeeze(1)
+            nxt = torch.where(done, torch.zeros_like(nxt), nxt)
+            x = torch.cat([x, nxt[:, None]], dim=1)
+            done = done | (nxt == eos)
+            if done.all():
+                break
+    return nn.functional.pad(x, (0, length - x.shape[1]))
+
+
+def response_logprob(model, x, sep, eos=2):
+    # log-probability that the network gives to the response of each text: the sum over the words after `sep`, `</s>` included
+    logp = torch.log_softmax(model(x[:, :-1]), dim=-1).gather(2, x[:, 1:, None]).squeeze(2)
+    position = torch.arange(x.shape[1] - 1)[None]
+    start, end = (x == sep).int().argmax(dim=1)[:, None], (x == eos).int().argmax(dim=1)[:, None]
+    return (logp * ((position >= start) & (position <= end - 1))).sum(dim=1)
+
+
+class RewardModel(nn.Module):
+    # a copy of a pre-trained decoder whose output layer is replaced by a single number: the score of a whole text, read in the
+    # vector of its last word (`</s>`)
+    def __init__(self, model, eos=2):
+        super().__init__()
+        self.body, self.eos = copy.deepcopy(model), eos
+        self.score = nn.Linear(self.body.unembed.in_features, 1)
+
+    def n_parameters(self):
+        return sum(p.numel() for p in self.parameters())
+
+    def forward(self, x):
+        body = self.body
+        h = body.embedding(x) + body.position(torch.arange(x.shape[1]))
+        allowed = body.allowed(x)
+        for block in body.blocks:
+            h = block(h, allowed)
+        h = body.norm(h)
+        return self.score(h[torch.arange(len(x)), (x == self.eos).int().argmax(dim=1)]).squeeze(1)
+
+
+def fit_reward_model(reward_model, chosen, rejected, steps=300, lr=1e-3, seed=0, batch_size=64):
+    # Bradley-Terry: the probability that `chosen` beats `rejected` is sigmoid(score(chosen) - score(rejected)); we minimize -log of it
+    torch.manual_seed(seed)
+    for p in reward_model.parameters():
+        p.requires_grad_(True)
+    optimizer = torch.optim.AdamW(reward_model.parameters(), lr=lr, weight_decay=0.01)
+    for _ in range(steps):
+        i = torch.randint(len(chosen), (batch_size,))
+        loss = -nn.functional.logsigmoid(reward_model(chosen[i]) - reward_model(rejected[i])).mean()
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+    return reward_model.eval().requires_grad_(False)
+
+
+def reinforce(policy, prompts, reward, sep, beta=0.0, steps=300, lr=3e-3, seed=0, batch_size=64, callback=None, checkpoints=()):
+    # RLHF in its simplest form (a simplified REINFORCE, not PPO): the policy (a network with LoRA layers whose adapter is on) writes a
+    # response to each prompt, the reward is reward(text) - beta * (log p_policy - log p_reference) of the response, where the reference
+    # is the SAME network with the adapter off, and the log-probability of the responses is pushed up in proportion to how much
+    # their reward is above the average of the batch
+    optimizer = torch.optim.AdamW([p for p in policy.parameters() if p.requires_grad], lr=lr, weight_decay=0.0)
+    rng, generator = np.random.default_rng(seed), torch.Generator().manual_seed(seed)
+    for step in range(1, steps + 1):
+        x = sample_responses(policy, prompts[torch.as_tensor(rng.integers(len(prompts), size=batch_size))], sep, generator=generator)
+        logp = response_logprob(policy, x, sep)
+        with torch.no_grad():
+            set_adapter(policy, False)
+            reference = response_logprob(policy, x, sep)
+            set_adapter(policy, True)
+            r = reward(x) - beta * (logp.detach() - reference)
+        loss = -((r - r.mean()) * logp).mean()
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        if callback is not None and step in checkpoints:
+            callback(step, policy)
+    return policy
+
+
+def dpo(policy, chosen, rejected, sep, beta=0.5, steps=300, lr=1e-3, seed=0, batch_size=64, callback=None, checkpoints=()):
+    # DPO: no reward model and no sampling. Loss = -log sigmoid(beta * [(log p(chosen) - log p_ref(chosen)) - (log p(rejected) - log p_ref(rejected))]);
+    # the reference is again the network with the adapter off (its numbers are computed once, before the training)
+    torch.manual_seed(seed)
+    optimizer = torch.optim.AdamW([p for p in policy.parameters() if p.requires_grad], lr=lr, weight_decay=0.0)
+    with torch.no_grad():
+        set_adapter(policy, False)
+        reference_chosen, reference_rejected = response_logprob(policy, chosen, sep), response_logprob(policy, rejected, sep)
+        set_adapter(policy, True)
+    for step in range(1, steps + 1):
+        i = torch.randint(len(chosen), (batch_size,))
+        margin = (response_logprob(policy, chosen[i], sep) - reference_chosen[i]) - (response_logprob(policy, rejected[i], sep) - reference_rejected[i])
+        loss = -nn.functional.logsigmoid(beta * margin).mean()
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        if callback is not None and step in checkpoints:
+            callback(step, policy)
+    return policy
