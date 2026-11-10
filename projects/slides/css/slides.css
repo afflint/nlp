@@ -1,0 +1,112 @@
+/* Stili specifici delle slide (il tema e il layout comune sono in theme.css). Stessa grafica del deck "AI, Ethics and Language". */
+
+/* ===== comuni: statement con filetto a sinistra, etichette, copertina di sezione ===== */
+.reveal b{font-weight:600}
+.stmt{font-size:56px;line-height:1.2;font-weight:600;color:var(--ink);margin:0 0 40px;padding-left:34px;border-left:7px solid var(--secondary);max-width:1640px;letter-spacing:-.008em}
+.stmt b{font-weight:700;color:var(--secondary)}
+.col-label{font-family:var(--sans);font-size:24px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--secondary);border-top:3px solid var(--secondary);padding-top:12px;margin-bottom:22px}
+.col-label.warn{color:#c8630a;border-top-color:#c8630a}
+.tag{font-family:var(--sans);font-style:normal;font-size:17px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--secondary);border:1.5px solid var(--secondary);border-radius:999px;padding:1px 12px}
+.s-head-tight .slide-body{top:132px}
+.link-line{font-family:var(--sans);font-size:26px;color:var(--ink2)}
+.link-line a{color:var(--secondary);text-decoration:none;border-bottom:2px solid var(--secondary)}
+
+.s-section .kicker{color:rgba(255,255,255,.72)}
+.reveal .s-section h1.sec-title{font-size:108px;font-weight:700;line-height:1.05;color:#fff;margin:6px 0 0;letter-spacing:-.012em}
+.reveal .s-section h1.sec-title::after{content:"";display:block;width:150px;height:4px;background:#fff;margin:34px 0 0}
+.s-section .slide-body{top:410px}
+.s-section .sec-statement{font-size:54px;line-height:1.2;font-weight:600;color:#fff;margin:0 0 34px;padding-left:34px;border-left:7px solid rgba(255,255,255,.85);max-width:1560px;letter-spacing:-.008em}
+.s-section .sec-text{font-size:31px;line-height:1.45;color:rgba(255,255,255,.88);margin:0;max-width:1480px;padding-left:41px}
+.s-section .sec-ideas{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:84px;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.s-section .sec-ideas li{font-family:var(--sans);font-size:25px;line-height:1.3;color:#fff;border-top:2px solid rgba(255,255,255,.55);padding-top:14px}
+.s-section .sec-ideas .k{display:block;font-weight:700;font-size:30px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.s-section .sec-ideas.four{grid-template-columns:repeat(4,1fr)}
+.s-section .sec-contact{font-family:var(--sans);font-size:27px;line-height:1.5;color:rgba(255,255,255,.88);margin:34px 0 0;padding-left:41px}
+html.on-blue #logo-fixed .logo-img{filter:invert(1)}
+html.on-blue .reveal .progress{color:#fff}
+html.on-blue .reveal .slide-number{color:rgba(255,255,255,.75)}
+html.on-blue .reveal .controls{color:rgba(255,255,255,.7)}
+
+/* ===== due colonne: a sinistra tema e punti, a destra percorso numerato ===== */
+.s-overview .slide-body{display:grid;grid-template-columns:790px 1fr;gap:110px;align-items:start}
+.s-overview .statement{font-size:50px;line-height:1.14;font-weight:600;color:var(--secondary);margin:0 0 34px;letter-spacing:-.01em}
+.s-overview .points{list-style:none;margin:0;padding:0}
+.s-overview .points li{font-size:29px;line-height:1.4;color:var(--ink);margin:0 0 24px;padding-left:26px;position:relative}
+.s-overview .points li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;border-radius:50%;background:var(--secondary)}
+.s-overview .flow{list-style:none;margin:0;padding:0;counter-reset:step}
+.s-overview .flow li{counter-increment:step;position:relative;padding-left:86px;margin:0 0 26px;min-height:60px}
+.s-overview .flow li::before{content:counter(step);position:absolute;left:0;top:0;width:56px;height:56px;box-sizing:border-box;border:2.5px solid var(--secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:600;font-size:27px;color:var(--secondary);background:var(--bg)}
+.s-overview .flow li:not(:last-child)::after{content:"";position:absolute;left:27px;top:60px;bottom:-24px;width:2px;background:var(--line)}
+.s-overview .flow .t{display:block;font-size:34px;font-weight:600;line-height:1.15;color:var(--ink)}
+.s-overview .flow .d{display:block;font-family:var(--sans);font-size:24px;line-height:1.3;color:var(--ink2);margin-top:3px}
+
+/* ===== slide con carte (esame, documenti da consegnare, uso dell'AI) ===== */
+.s-cards .cards{display:grid;gap:34px;align-items:stretch}
+.s-cards .cards.two{grid-template-columns:1fr 1fr}
+.s-cards .cards.three{grid-template-columns:1fr 1fr 1fr}
+.s-cards .card{border:2px solid var(--grid);border-top:6px solid var(--secondary);padding:22px 30px 26px;background:rgba(0,51,102,.04)}
+.s-cards .card.warn{border-top-color:#c8630a;background:rgba(200,99,10,.05)}
+.s-cards .card .lbl{font-family:var(--sans);font-size:21px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--secondary);margin-bottom:10px}
+.s-cards .card.warn .lbl{color:#c8630a}
+.s-cards .card .h{font-size:42px;line-height:1.25;font-weight:600;color:var(--ink);margin:0 0 16px}
+.s-cards .card ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.s-cards .card li{font-family:var(--sans);font-size:29px;line-height:1.35;color:var(--ink2);padding-left:22px;position:relative}
+.s-cards .card li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.6}
+.s-cards .card li b{color:var(--ink);font-weight:600}
+.s-cards .callout{margin:40px 0 0;padding:6px 0 6px 30px;border-left:7px solid #c8630a;font-size:38px;line-height:1.3;font-weight:600;color:var(--ink)}
+.s-cards .callout small{display:block;font-family:var(--sans);font-size:26px;font-weight:400;line-height:1.4;color:var(--ink2);margin-top:12px}
+.s-cards .take{font-size:38px;line-height:1.3;font-weight:600;color:var(--secondary);margin:40px 0 0;padding-left:34px;border-left:7px solid var(--secondary)}
+
+/* ===== elenchi con lettera/numero (struttura dell'articolo, come leggere le schede, elementi) ===== */
+.s-grid6 .grid{display:grid;grid-template-columns:1fr 1fr;gap:34px 70px}
+.s-grid6 .item{position:relative;padding-left:84px}
+.s-grid6 .item .n{position:absolute;left:0;top:2px;font-family:var(--sans);font-weight:700;font-size:34px;color:var(--secondary)}
+.s-grid6 .item .s{font-size:36px;line-height:1.2;font-weight:600;color:var(--ink)}
+.s-grid6 .item .d{font-family:var(--sans);font-size:26px;line-height:1.35;color:var(--ink2);margin-top:8px}
+
+/* ===== due colonne di elenchi con intestazione (sedi accettate) ===== */
+.s-venues .vcols{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:34px}
+.s-venues .vlist{list-style:none;margin:0;padding:0;font-size:30px;line-height:1.4;color:var(--ink)}
+.s-venues .vlist li{margin:0 0 8px;padding-left:26px;position:relative}
+.s-venues .vlist li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--secondary)}
+.s-venues .vlist .x{font-family:var(--sans);font-size:24px;color:var(--ink2)}
+.s-venues .must{font-size:32px;line-height:1.35;color:var(--ink);padding-left:34px;border-left:7px solid var(--secondary);margin:0}
+
+/* ===== mappa delle dieci schede ===== */
+.s-map .slide-body{top:132px}
+.s-map .tiles{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:34px 56px;margin-top:20px}
+.s-map .tile{position:relative;padding:18px 0 22px 110px;border-top:3px solid var(--secondary)}
+.s-map .tile .n{position:absolute;left:0;top:16px;font-family:var(--sans);font-weight:700;font-size:72px;line-height:1;color:var(--secondary)}
+.s-map .tile .t{font-size:42px;line-height:1.15;font-weight:600;color:var(--ink)}
+.s-map .tile .d{font-family:var(--sans);font-size:28px;line-height:1.3;color:var(--ink2);margin-top:4px}
+
+/* ===== scheda di un tema (track) ===== */
+.s-track .slide-head{top:58px}
+.s-track .tk-title{font-size:62px;line-height:1.1;font-weight:700;color:var(--secondary);letter-spacing:-.01em}
+.s-track .tk-sub{font-family:var(--sans);font-size:30px;color:var(--ink2);margin-top:6px}
+.s-track .slide-body{top:262px;bottom:0}
+.s-track .tk-q{font-size:40px;line-height:1.25;font-style:italic;font-weight:400;color:var(--ink);margin:0 0 26px;padding-left:30px;border-left:7px solid var(--secondary);max-width:1740px}
+.s-track .tk-cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:46px}
+.s-track .tk-col ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.s-track .tk-col li{font-size:25px;line-height:1.3;color:var(--ink);padding-left:22px;position:relative}
+.s-track .tk-col li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--secondary)}
+.s-track .tk-col.warn li::before{background:#c8630a}
+.s-track .tk-col li b{font-weight:600;color:var(--secondary)}
+.s-track .tk-col.warn li b{color:#c8630a}
+.s-track .tk-col li span{color:var(--ink2)}
+.s-track .tk-foot{position:absolute;left:0;right:0;bottom:28px;display:grid;grid-template-columns:1.2fr 1fr;gap:56px;font-family:var(--sans);font-size:19px;line-height:1.35;color:var(--ink2)}
+.s-track .tk-foot b{display:block;font-size:16px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--secondary);margin-bottom:3px}
+
+/* ===== schede che si toccano ===== */
+.s-near .pairs{display:grid;gap:26px}
+.s-near .pair{display:grid;grid-template-columns:230px 1fr;gap:36px;align-items:baseline;border-top:2px solid var(--grid);padding-top:14px}
+.s-near .pair .k{font-family:var(--sans);font-weight:700;font-size:36px;color:var(--secondary);letter-spacing:.02em}
+.s-near .pair .t{font-size:33px;line-height:1.35;color:var(--ink)}
+.s-near .pair .t b{font-weight:600}
+
+/* ===== copertina: nota sull'uso dell'AI in basso ===== */
+.cover .ai-note{position:absolute;left:140px;right:140px;bottom:34px;margin:0;font-family:var(--sans);font-size:18px;line-height:1.4;color:var(--ink3);text-align:left}
+.cover .ai-note b{font-weight:600;color:var(--ink2)}
+
+/* esportazione statica (PDF): ?static */
+html.static-export .reveal .controls,html.static-export .reveal .progress,html.static-export .reveal .slide-number{display:none !important}

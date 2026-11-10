@@ -1,0 +1,44 @@
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 2</div>
+    <div class="tk-title">Fact-Checking and Retrieval</div>
+    <div class="tk-sub">Lexical vs semantic search with LLMs</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How far can we trust what is retrieved, and what changes between lexical and embedding-based retrieval when the goal is to verify a claim?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Lexical, dense or hybrid:</b> <span>which claims does each approach win?</span></li>
+          <li><b>Where the error comes from:</b> <span>retrieval or verification?</span></li>
+          <li><b>Robustness:</b> <span>contradictory, outdated, poisoned evidence; domain, language</span></li>
+          <li><b>Evidence vs model knowledge:</b> <span>what if they conflict?</span></li>
+          <li><b>Hard claims:</b> <span>negations, numbers, time, multi-hop, insufficient evidence</span></li>
+          <li><b>Domains:</b> <span>health, climate, economy, science</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>Retrieval evaluated separately:</b> <span>recall@k, nDCG apart from the verdict metrics</span></li>
+          <li><b>A serious lexical baseline:</b> <span>well configured, not a strawman</span></li>
+          <li><b>Error analysis at the centre:</b> <span>categorise the failures</span></li>
+          <li><b>At least one stress condition:</b> <span>poisoned corpus, domain or language shift, time</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Only end-to-end accuracy, concluding “dense is better” without why</li>
+          <li>A tuned dense model against an untuned lexical baseline</li>
+          <li>An LLM as the only judge of evidence, unchecked</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>fact-checking, claim verification, evidence retrieval, dense retrieval, BM25, hybrid retrieval, retrieval-augmented generation, hallucination, knowledge conflicts, corpus poisoning, out-of-domain retrieval, multi-hop verification, misinformation.</div>
+      <div><b>Feasibility and resources</b>Lexical indexes and small sentence encoders run on a laptop. The cost grows with large language models as verifiers: use a small model or a sample, and say so.</div>
+    </div>
+  </div>
+</section>

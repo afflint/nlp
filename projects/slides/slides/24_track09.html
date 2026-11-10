@@ -1,0 +1,44 @@
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 9</div>
+    <div class="tk-title">Trust and Provenance</div>
+    <div class="tk-sub">Prompt injection, watermarking and detection</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How robust are the mechanisms that protect language models and identify what they generate?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Prompt injection:</b> <span>direct and indirect: documents, tools, agents</span></li>
+          <li><b>Watermarking:</b> <span>detectability, quality, robustness to paraphrase</span></li>
+          <li><b>Detection of generated text:</b> <span>reliability, languages, non-native writers</span></li>
+          <li><b>Memorisation and privacy:</b> <span>membership inference, extraction</span></li>
+          <li><b>Poisoning and backdoors:</b> <span>tampered training data or corpora</span></li>
+          <li><b>Safety and utility trade-offs:</b> <span>what does a defence cost?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>An explicit threat model:</b> <span>who attacks, what they know and can do</span></li>
+          <li><b>A safety and utility trade-off:</b> <span>attack success and loss on the legitimate task</span></li>
+          <li><b>Correct detection metrics:</b> <span>true positive rate at a low fixed false positive rate</span></li>
+          <li><b>An adaptive adversary, in a sandbox:</b> <span>public benchmarks, never real third-party systems</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>A defence evaluated only against attacks not designed against it</li>
+          <li>Detection accuracy on a balanced set, ignoring false positives on human text</li>
+          <li>A defence called robust without measuring the loss in utility</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>prompt injection, indirect prompt injection, jailbreaks, LLM agents security, watermarking language models, machine-generated text detection, paraphrase attacks, membership inference, training data extraction, data poisoning, backdoors, adaptive attacks, AI-generated text detection fairness.</div>
+      <div><b>Feasibility and resources</b>Watermarking with small open models and injection experiments on public benchmarks are accessible. Ethics: sandboxed environments or public benchmarks only, no tests on real systems of third parties, no operational attack tools.</div>
+    </div>
+  </div>
+</section>

@@ -6,6 +6,11 @@
 
 ###### Università degli Studi di Milano
 
+---
+#### AI use
+
+The notebooks and the code in this folder were prepared by the instructor with the assistance of Anthropic's Claude (used through Claude Code). The assistant helped to write the notebooks and the shared code (`nlp/`), to run the experiments and to draft the explanatory text; the choice of the topics, the structure of each notebook and the review of the results are the instructor's. All the numbers shown in the notebooks come from running the code they contain.
+
 ## Part 0 — Course Introduction
 
 This opening lesson sets the stage before any technical content: what this course is about, why natural language is a hard object to compute with, what students will be able to build and understand by the end, and how the project and assessment work. It also previews the narrative arc of the course, from raw text to tokens, from tokens to numbers, from numbers to meaning, and finally to modern large language models
@@ -204,3 +209,6 @@ No model is neutral or fully transparent, and no course is complete without conf
 - Olah, C., Cammarata, N., Schubert, L., et al. (2020). *Zoom In: An Introduction to Circuits.* Distill.
   [https://distill.pub/2020/circuits/zoom-in/](https://distill.pub/2020/circuits/zoom-in/)
   — Foundational text for mechanistic interpretability.
+
+---
+

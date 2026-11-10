@@ -1,0 +1,77 @@
+/* Font: Source Serif 4 (titoli e testo, con corsivo) + Source Sans 3 (etichette, didascalie, numeri), inclusi in vendor/fonts */
+@font-face{font-family:"Source Serif 4";font-weight:400;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Serif 4";font-weight:400;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-400-italic.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Serif 4";font-weight:600;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-600-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Serif 4";font-weight:600;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-600-italic.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Serif 4";font-weight:700;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-700-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Serif 4";font-weight:400;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Serif 4";font-weight:400;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-ext-400-italic.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Serif 4";font-weight:600;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-ext-600-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Serif 4";font-weight:600;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-ext-600-italic.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Serif 4";font-weight:700;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-serif-4-latin-ext-700-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Sans 3";font-weight:400;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-weight:400;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-400-italic.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-weight:600;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-600-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-weight:600;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-600-italic.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-weight:700;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-700-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Source Sans 3";font-weight:400;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-ext-400-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Sans 3";font-weight:400;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-ext-400-italic.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Sans 3";font-weight:600;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-ext-600-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Sans 3";font-weight:600;font-style:italic;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-ext-600-italic.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Source Sans 3";font-weight:700;font-style:normal;font-display:swap;src:url("../vendor/fonts/source-sans-3-latin-ext-700-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+/* Tema delle slide: canvas fisso 1920x1080 (16:9), tipografia Inter, palette coerente con i report. */
+
+:root{
+  --bg:#fcfcfb; --surface:#ffffff; --ink:#0b0b0b; --ink2:#52514e; --ink3:#7a7974; --line:#e4e3de; --grid:#eceae5;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100; --c5:#e87ba4; --c6:#6250d6; --other:#a9a8a2; --accent:#2a78d6; --geo:#d9d7d0;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif; --sans:"Source Sans 3","Helvetica Neue",Arial,sans-serif; --secondary:#003366; --logo-h:72px; --pad-x:96px; --head-top:84px; --body-top:240px;
+}
+:root[data-theme="dark"]{
+  --secondary:#7fa6d6;
+  --bg:#121211; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --ink3:#8f8e86; --line:#33332f; --grid:#2a2a27;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181; --c6:#9085e9; --other:#6b6a64; --accent:#3987e5; --geo:#3d3d39;
+}
+html,body{background:var(--bg)}
+.reveal{font-family:var(--serif);font-size:38px;color:var(--ink);font-weight:400;font-optical-sizing:auto}
+.reveal .slides{text-align:left}
+.reveal .slides section{width:1920px;height:1080px;top:0 !important;padding:0;box-sizing:border-box;text-align:left}
+.reveal .slides section.present{display:block}
+.reveal h1,.reveal h2,.reveal h3,.reveal h4{font-family:inherit;color:var(--ink);text-transform:none;letter-spacing:-.005em;margin:0;font-weight:600;line-height:1.15}
+.reveal h2{font-size:66px}
+.reveal h3{font-size:44px;font-weight:600}
+.reveal p,.reveal li{line-height:1.35}
+.reveal a{color:var(--secondary)}
+.reveal strong{font-weight:600}
+
+/* --- struttura comune di una slide: intestazione (con il logo a sinistra) + corpo --- */
+.slide-head{position:absolute;left:var(--pad-x);right:var(--pad-x);top:var(--head-top)}
+.slide-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:var(--body-top);bottom:72px}
+.kicker{font-family:var(--sans);font-size:25px;letter-spacing:.16em;text-transform:uppercase;color:var(--secondary);font-weight:600;margin-bottom:10px}
+.muted{color:var(--ink2)} .small{font-family:var(--sans);font-size:28px;color:var(--ink2)}
+.reveal em,.reveal i{font-style:italic}
+
+/* --- logo sempre visibile in alto a sinistra (tranne copertina) --- */
+#logo-fixed{position:absolute;right:var(--pad-x);top:30px;height:var(--logo-h);color:var(--ink);z-index:20;pointer-events:none}
+#logo-fixed img,#logo-fixed svg{height:100%;width:auto;display:block}
+html.is-cover #logo-fixed{display:none}
+.cover-logo{height:188px;width:auto;display:block}   /* dimensione nativa del file (330x188 px): nitido */
+:root[data-theme="dark"] .logo-img{filter:invert(1)}
+
+/* --- copertina: titolo, nome e affiliazione a sinistra; corso/organizzatori e logo centrati, logo SOTTO il testo --- */
+.cover{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;padding:0 140px}
+.cover h1{order:1;font-size:112px;font-weight:700;line-height:1.05;margin:0 0 34px;letter-spacing:-.01em;color:var(--secondary)}
+.cover h1::after{content:"";display:block;width:150px;height:4px;background:var(--secondary);margin:38px 0 0}
+.cover h3{order:2;font-size:46px;font-weight:400;font-style:italic;color:var(--ink);margin:6px 0 10px}
+.cover .affil{order:2;font-family:var(--sans);font-size:30px;line-height:1.45;color:var(--ink2);margin:0 0 30px;letter-spacing:.01em}
+.cover .meta{order:3;align-self:center;text-align:center;font-family:var(--sans);font-size:30px;line-height:1.55;color:var(--ink2);letter-spacing:.01em}
+.cover .ai-note{position:absolute;left:140px;right:140px;bottom:34px;margin:0;font-family:var(--sans);font-size:18px;line-height:1.4;color:var(--ink3);text-align:left}
+.cover .ai-note b{font-weight:600;color:var(--ink2)}
+.cover-logo{order:4;align-self:center;height:150px;width:auto;display:block;margin-top:84px}
+
+/* progresso e numero di slide discreti */
+.reveal .progress{color:var(--secondary);height:6px}
+.reveal .slide-number a{text-decoration:none;color:inherit}
+.reveal .slide-number{background:transparent;color:var(--ink3);font-family:var(--sans);font-size:24px;right:36px;bottom:24px}
+.reveal .controls{color:var(--ink3)}
+.reveal .controls button{opacity:.5}

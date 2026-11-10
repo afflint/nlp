@@ -1,0 +1,44 @@
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 3</div>
+    <div class="tk-title">Interventions and Causality</div>
+    <div class="tk-sub">Measuring what changes in LLM behaviour</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What is the causal effect of an intervention (a prompt, a tuning step, a model change) on a measurable aspect of a model’s behaviour?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Prompt level:</b> <span>persona, language, framing, wording, order of examples</span></li>
+          <li><b>Training level:</b> <span>base vs instruction-tuned, fine-tuning, model size</span></li>
+          <li><b>Inference level:</b> <span>quantisation, decoding, context length</span></li>
+          <li><b>Outcomes:</b> <span>sycophancy, accuracy, calibration, refusals, style, bias</span></li>
+          <li><b>Heterogeneous effects:</b> <span>where is the effect larger or reversed?</span></li>
+          <li><b>Prompt optimisation:</b> <span>does an optimised prompt generalise?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A formalised design:</b> <span>treatment, control, outcome, unit, quantity to estimate</span></li>
+          <li><b>One change at a time:</b> <span>paired prompts, content controlled</span></li>
+          <li><b>A validly measured outcome:</b> <span>validated on a hand-annotated sample</span></li>
+          <li><b>Quantified uncertainty:</b> <span>intervals, paired tests, effect sizes; threats to validity</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>A few prompt variants, “one works better”, with no design or uncertainty</li>
+          <li>Conditions that differ in more than one respect</li>
+          <li>A causal effect on behaviour read as an explanation of the mechanism (Track 6)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>causal inference in NLP, treatment effect, average treatment effect, instruction tuning, base vs instruct models, prompt sensitivity, persona prompting, sycophancy, calibration, quantisation effects, paired experiments, bootstrap confidence intervals, behavioural evaluation.</div>
+      <div><b>Feasibility and resources</b>Base and instruction-tuned pairs of small open models and paired prompts on medium-size datasets run with little compute. The cost grows with models and repetitions: scale them to your resources.</div>
+    </div>
+  </div>
+</section>

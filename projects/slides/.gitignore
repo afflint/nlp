@@ -1,0 +1,19 @@
+# generati o locali
+__pycache__/
+*.pyc
+.DS_Store
+
+# difensivi (non presenti oggi): segreti, ambienti, editor, log
+.env
+.env.*
+*.key
+*.pem
+venv/
+.venv/
+node_modules/
+.ipynb_checkpoints/
+*.log
+.vscode/
+.idea/
+*.swp
+Thumbs.db

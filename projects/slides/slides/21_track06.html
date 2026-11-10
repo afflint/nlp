@@ -1,0 +1,44 @@
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 6</div>
+    <div class="tk-title">Inside the Model</div>
+    <div class="tk-sub">Mechanistic interpretability of a phenomenon</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How does a model implement a specific behaviour, and can we test our explanation with interventions on its internals?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Linguistic phenomena:</b> <span>agreement, coreference, negation, tense, number</span></li>
+          <li><b>Factual recall and relations:</b> <span>where does the model retrieve a fact?</span></li>
+          <li><b>Pattern copying and induction:</b> <span>in-context learning, repetition</span></li>
+          <li><b>Simple reasoning or arithmetic:</b> <span>which components compute?</span></li>
+          <li><b>Behavioural tendencies:</b> <span>sycophancy, refusal, sentiment</span></li>
+          <li><b>Representations:</b> <span>directions, subspaces, features: can they be manipulated?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A measurable phenomenon:</b> <span>controlled inputs, e.g. a logit difference</span></li>
+          <li><b>A falsifiable hypothesis:</b> <span>stated in advance, with what would refute it</span></li>
+          <li><b>Causal evidence:</b> <span>ablation, patching or steering, not only probes</span></li>
+          <li><b>Controls and declared limits:</b> <span>random components, corrupted inputs, many prompts</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Attention maps or probe accuracies presented as an explanation</li>
+          <li>A phenomenon with no clear, measurable outcome</li>
+          <li>A hypothesis verified on one single prompt template</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>mechanistic interpretability, circuits, activation patching, causal tracing, logit lens, probing, attribution, induction heads, sparse autoencoders, superposition, steering vectors, representation engineering, faithfulness of explanations.</div>
+      <div><b>Feasibility and resources</b>Small models (GPT-2 sized, Pythia, a few hundred million parameters) and libraries such as TransformerLens are enough. The cost grows quickly with larger models. Unlike Track 3, causality here is inside the model.</div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 10</div>
+    <div class="tk-title">Training on Generated Text</div>
+    <div class="tk-sub">Synthetic data and model collapse</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What happens when models learn from text produced by other models, and when does it help or harm?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Recursive training:</b> <span>over several generations</span></li>
+          <li><b>Real and synthetic data:</b> <span>proportions; replacement vs accumulation</span></li>
+          <li><b>What degrades:</b> <span>diversity, calibration, style, bias, minorities</span></li>
+          <li><b>Prevention:</b> <span>filtering and selection of synthetic data</span></li>
+          <li><b>Contaminated corpora:</b> <span>web corpora with generated text</span></li>
+          <li><b>Distillation, self-generated data:</b> <span>when does a stronger source help?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A controlled and declared loop:</b> <span>generations, quantity, scheme</span></li>
+          <li><b>A real-data baseline at the same budget:</b> <span>to separate the effect of synthetic data</span></li>
+          <li><b>Metrics beyond perplexity:</b> <span>diversity, tails, divergence, task utility</span></li>
+          <li><b>Systematic variation and realism:</b> <span>proportions, seeds, uncertainty</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Degradation shown in an unrealistic setting, with no discussion</li>
+          <li>Reporting only perplexity</li>
+          <li>A baseline that uses a different amount of data</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>model collapse, synthetic data, recursive training, self-consuming generative models, data contamination, distillation, self-instruct, diversity of generated text, tail distribution, data mixing, training on AI-generated data.</div>
+      <div><b>Feasibility and resources</b>Small models (GPT-2 sized or distilled, or small ones trained from scratch) and reduced datasets are enough. The cost grows with the number of generations: scale it to your resources and justify it.</div>
+    </div>
+  </div>
+</section>

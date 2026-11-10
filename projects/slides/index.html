@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Final projects 2026–27: themes and guidelines</title>
+<link rel="stylesheet" href="vendor/reveal/reset.css">
+<link rel="stylesheet" href="vendor/reveal/reveal.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/slides.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <div id="logo-fixed"><img class="logo-img" src="assets/logo.png" alt="Università degli Studi di Milano — La Statale"></div>
+    <!-- 01_cover.html -->
+<section data-cover>
+  <div class="cover">
+    <img class="cover-logo logo-img" src="assets/logo.png" alt="Università degli Studi di Milano — La Statale">
+    <h1>Final projects 2026–27</h1>
+    <h3>Themes and guidelines</h3>
+    <div class="affil">Alfio Ferrara, with Sergio Picascia and Elisabetta Rocchetti<br>
+      Department of Computer Science, Università degli Studi di Milano</div>
+    <div class="meta">
+      Natural Language Processing<br>
+      Master Degree in Computer Science · Master Degree in Data Science for Economics and Health</div>
+    <p class="ai-note"><b>AI use.</b> Prepared with the assistance of Claude Sonnet 5.5 (Anthropic, used through Claude Code): slide construction and condensation of the text of the project guidelines. The content of the guidelines and the responsibility for it are the instructors’.</p>
+  </div>
+</section>
+
+    <!-- 02_section_how.html -->
+<section class="s-section" data-background-color="#003366" data-section>
+  <div class="slide-head">
+    <div class="kicker">Part 1</div>
+    <h1 class="sec-title">How the project works</h1>
+  </div>
+  <div class="slide-body">
+    <p class="sec-statement">The final exam is an interview in two parts, and the project is one of them.</p>
+    <p class="sec-text">Before the themes, the rules: what the exam consists of, what a project is, what you have to deliver, how to book the interview and what we expect from the code and from the use of AI.</p>
+  </div>
+  <ol class="sec-ideas four">
+    <li><span class="k">1</span>The exam and the project</li>
+    <li><span class="k">2</span>Reference paper and deliverables</li>
+    <li><span class="k">3</span>Procedure and resources</li>
+    <li><span class="k">4</span>AI and code</li>
+  </ol>
+</section>
+
+    <!-- 03_exam.html -->
+<section class="s-cards s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">The exam at a glance</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">A single oral interview, made of two parts.</p>
+    <div class="cards two">
+      <div class="card">
+        <div class="lbl">Part 1</div>
+        <p class="h">Theory questions on the topics of the course</p>
+        <ul>
+          <li>They cover the <b>whole programme</b>: lectures, slides and the material indicated by the instructors.</li>
+          <li>Not only the topics related to your project: prepare for them independently of the project work.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="lbl">Part 2</div>
+        <p class="h">Discussion of your final project</p>
+        <ul>
+          <li>The research paper, the code repository and the presentation.</li>
+          <li>Assessed on the output and on your <b>ability to explain and justify every choice</b>, including the content of your reference paper and why your work goes beyond it.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="callout fragment" data-fragment-index="0">The theory questions are mandatory and indispensable to pass the exam.
+      <small>A satisfactory answer is a necessary condition for a passing grade. An excellent project does not compensate for insufficient knowledge of the course contents, and a good theory preparation does not replace the project: the final grade takes both into account.</small></p>
+  </div>
+</section>
+
+    <!-- 04_project.html -->
+<section class="s-grid6 s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">The final project</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">A short study on one topic of the course, with a precise research question and measurable objectives.</p>
+    <div class="grid">
+      <div class="item"><div class="n">1</div><div class="s">Research question</div><div class="d">Precise, with measurable objectives.</div></div>
+      <div class="item"><div class="n">2</div><div class="s">Methodology</div><div class="d">A proposed way of solving the research question.</div></div>
+      <div class="item"><div class="n">3</div><div class="s">Experimental verification</div><div class="d">The results obtained, evaluated with explicit metrics.</div></div>
+      <div class="item"><div class="n">4</div><div class="s">Critical discussion</div><div class="d">The emphasis is not on obtaining high performance, but on discussing the results to understand the potential effectiveness of the methodology.</div></div>
+    </div>
+  </div>
+</section>
+
+    <!-- 05_new_this_year.html -->
+<section class="s-overview">
+  <div class="slide-head">
+    <div class="kicker">What is new this year</div>
+    <h2>Ten tracks, and you design your own project</h2>
+  </div>
+  <div class="slide-body">
+    <div class="theme-col">
+      <div class="col-label">The idea</div>
+      <p class="statement">No ready-made project descriptions.</p>
+      <ul class="points">
+        <li>We propose <b>ten broad themes</b>. You choose one and design your own project within it.</li>
+        <li>The tracks describe a scope and the requirements that a good project must meet. They are <b>not assignments</b>: the research question, the data, the models, the metrics and the experimental design are yours.</li>
+        <li>Projects that are very similar to each other, or that merely apply a generic recipe to a topic, will be harder to defend at the interview.</li>
+      </ul>
+    </div>
+    <div class="flow-col">
+      <div class="col-label">Five steps</div>
+      <ol class="flow">
+        <li><span class="t">Choose a track</span>
+          <span class="d">One of the ten themes</span></li>
+        <li><span class="t">Choose a reference paper</span>
+          <span class="d">From the closed list of venues: study it carefully, it is your starting point</span></li>
+        <li><span class="t">Formulate your own research question</span>
+          <span class="d">With measurable objectives, going beyond the reference paper</span></li>
+        <li><span class="t">Design and carry out the experiments</span>
+          <span class="d">Within the resources you have</span></li>
+        <li><span class="t">Write the paper, prepare the repository and the presentation</span>
+          <span class="d">LaTeX paper, GitHub repository, 10-minute talk</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+    <!-- 06_reference_paper.html -->
+<section class="s-venues s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">Reference paper</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">Anchor your project to at least one reference paper, from a closed list of venues.</p>
+    <div class="vcols">
+      <div>
+        <div class="col-label">NLP and computational linguistics</div>
+        <ul class="vlist">
+          <li>ACL, EMNLP, NAACL, EACL, AACL-IJCNLP, COLING, LREC-COLING, CoNLL, *SEM</li>
+          <li>TACL and Computational Linguistics</li>
+          <li><span class="x">Papers in the Findings of ACL, EMNLP, NAACL and EACL are also accepted</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Machine learning and AI</div>
+        <ul class="vlist">
+          <li>NeurIPS (including the Datasets &amp; Benchmarks track), ICML, ICLR, COLM, AAAI, IJCAI</li>
+          <li>TMLR, JAIR, JMLR</li>
+        </ul>
+      </div>
+    </div>
+    <p class="must">The paper is a source of inspiration: you are not expected to reproduce it, but you must be able to <b>present it, explain its methodology and results, and discuss its limitations</b>. Your own question and experiments go beyond it, and the report makes clear what is yours and what comes from the reference. Any other source is welcome: cite everything you use.</p>
+  </div>
+</section>
+
+    <!-- 07_deliverables.html -->
+<section class="s-cards s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">What you deliver</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">A paper, a repository and a presentation.</p>
+    <div class="cards three">
+      <div class="card fragment" data-fragment-index="0">
+        <div class="lbl">The paper</div>
+        <p class="h">A short article, 4 to 8 pages</p>
+        <ul>
+          <li>Written in <b>LaTeX</b>.</li>
+          <li>Not less than 4 pages and no more than 8.</li>
+          <li>Four sections (next slides).</li>
+        </ul>
+      </div>
+      <div class="card fragment" data-fragment-index="1">
+        <div class="lbl">The repository</div>
+        <p class="h">Code and reproducible results on GitHub</p>
+        <ul>
+          <li>Access to a <b>GitHub</b> repository with the code.</li>
+          <li>Reproducible experimental results.</li>
+        </ul>
+      </div>
+      <div class="card fragment" data-fragment-index="2">
+        <div class="lbl">The presentation</div>
+        <p class="h">10 minutes, in English, with slides</p>
+        <ul>
+          <li>It covers your <b>reference paper</b> as well as your own work.</li>
+          <li>The project is discussed after the presentation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- 08_paper_structure.html -->
+<section class="s-overview">
+  <div class="slide-head">
+    <div class="kicker">Structure of the paper</div>
+    <h2>Four sections</h2>
+  </div>
+  <div class="slide-body">
+    <div class="theme-col">
+      <div class="col-label">What the paper must show</div>
+      <p class="statement">What is yours and what comes from the reference.</p>
+      <ul class="points">
+        <li>The report makes explicit what is <b>original</b> with respect to the reference paper.</li>
+        <li>Results are presented as plots and/or tables, and discussed critically: their limits, and ideas for future work.</li>
+      </ul>
+    </div>
+    <div class="flow-col">
+      <div class="col-label">The sections</div>
+      <ol class="flow">
+        <li><span class="t">Introduction</span>
+          <span class="d">Overview of the project, short discussion of the pertinent literature, the reference paper and how your work relates to it</span></li>
+        <li><span class="t">Research question and methodology</span>
+          <span class="d">Clear statement of the goals, overview of the approach, formal definition of the problem; what is original</span></li>
+        <li><span class="t">Experimental results</span>
+          <span class="d">The dataset, the metrics and the experimental methodology; results as plots and/or tables</span></li>
+        <li><span class="t">Concluding remarks</span>
+          <span class="d">Critical discussion of the results, their limits, and ideas for future work</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+    <!-- 09_procedure.html -->
+<section class="s-overview">
+  <div class="slide-head">
+    <div class="kicker">Procedure</div>
+    <h2>How to book the interview</h2>
+  </div>
+  <div class="slide-body">
+    <div class="theme-col">
+      <div class="col-label">The rule</div>
+      <p class="statement">No preliminary approval of the project.</p>
+      <ul class="points">
+        <li>You choose a track and proceed on your own.</li>
+        <li>Exam dates are just for the <b>registration of the final grade</b>. The interview (theory questions and project discussion) is set by appointment.</li>
+        <li>How to contact Prof. Ferrara and submit the project is described in the <b>Ariel</b> web site (forum thread of the course).</li>
+      </ul>
+    </div>
+    <div class="flow-col">
+      <div class="col-label">Three steps</div>
+      <ol class="flow">
+        <li><span class="t">Subscribe to any available date</span>
+          <span class="d">It only registers the final grade</span></li>
+        <li><span class="t">Contact Prof. Ferrara</span>
+          <span class="d">As soon as the project is finished and ready to be discussed, and after the date of your subscription has expired</span></li>
+        <li><span class="t">Set up an appointment and discuss your work</span>
+          <span class="d">Theory questions and project discussion, in a single interview</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+    <!-- 10_resources.html -->
+<section class="s-cards s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">Resources and feasibility</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">Projects must be feasible with limited computational resources.</p>
+    <div class="cards two">
+      <div class="card">
+        <div class="lbl">What is realistic</div>
+        <ul>
+          <li>A laptop and free-tier notebooks.</li>
+          <li>Small open models.</li>
+          <li>Subsets of datasets.</li>
+          <li>Inexpensive API usage.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="lbl">What we ask of you</div>
+        <ul>
+          <li>You decide how ambitious to be.</li>
+          <li><b>Justify your choices</b>: for example, why a given model size or sample size is sufficient to answer your research question.</li>
+          <li>Every track says where the cost grows.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="take fragment" data-fragment-index="0">A small, well-designed and carefully analysed experiment is preferable to a large, poorly controlled one.</p>
+  </div>
+</section>
+
+    <!-- 11_ai_use.html -->
+<section class="s-cards s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">Using AI</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">Generative AI may be used, as an object of investigation and as a tool.</p>
+    <div class="cards two">
+      <div class="card">
+        <div class="lbl">Encouraged</div>
+        <ul>
+          <li>Explore how the models function and interact with them creatively.</li>
+          <li>Use them as inspiration or assistance in <b>ideation, drafting or experimentation</b>.</li>
+        </ul>
+        <div class="lbl" style="margin-top:22px">Not allowed</div>
+        <ul>
+          <li>Using AI as a <b>substitute for original work</b>: the structure, the reasoning and the understanding of the project remain yours.</li>
+        </ul>
+      </div>
+      <div class="card warn">
+        <div class="lbl">Mandatory, if AI was used at any stage</div>
+        <p class="h">A disclaimer that specifies</p>
+        <ul>
+          <li><b>Which models</b> have been used.</li>
+          <li><b>For what purposes</b>: drafting text, summarizing ideas, generating code or examples.</li>
+          <li><b>To what extent</b> the outputs were modified, verified or integrated into the final submission.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="callout fragment" data-fragment-index="0">The interview evaluates the depth of your understanding.
+      <small>Any lack of clarity, or over-reliance on AI-generated material without proper insight, may negatively affect the evaluation. The theory questions test what you have learned: they cannot be prepared with AI assistance during the exam.</small></p>
+  </div>
+</section>
+
+    <!-- 12_coding.html -->
+<section class="s-cards s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">Instructions on coding</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">Not a single large notebook: a structured, maintainable repository.</p>
+    <div class="cards three">
+      <div class="card">
+        <div class="lbl">Structure</div>
+        <ul>
+          <li>Python <b>modules and packages</b>.</li>
+          <li>Object-oriented programming where appropriate: classes for models, datasets, evaluation pipelines.</li>
+          <li>Separated layers: data loading and preprocessing, model interface, evaluation, visualization.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="lbl">Notebooks</div>
+        <ul>
+          <li>For <b>demonstration, experimentation and visualization</b>.</li>
+          <li>Not for hosting the full application logic.</li>
+          <li>Each one imports and showcases components of the main modules.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="lbl">Quality</div>
+        <ul>
+          <li>Meaningful docstrings, comments and clear function signatures.</li>
+          <li>A repository that is <b>clean, reproducible and extensible</b>: others can replicate the results or build upon them.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- 13_read_tracks.html -->
+<section class="s-grid6 s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">How to read the tracks</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">Every track follows the same structure.</p>
+    <div class="grid">
+      <div class="item"><div class="n">1</div><div class="s">Overview</div><div class="d">What the track is about and what kind of research question it invites.</div></div>
+      <div class="item"><div class="n">2</div><div class="s">Possible perspectives</div><div class="d">Examples of the breadth of the track: not assignments, you are free to propose something different within its scope.</div></div>
+      <div class="item"><div class="n">3</div><div class="s">What we expect from a project</div><div class="d">The requirements that distinguish a good project in this track from a generic one.</div></div>
+      <div class="item"><div class="n">4</div><div class="s">Common pitfalls</div><div class="d">Typical weaknesses to recognise and avoid.</div></div>
+      <div class="item"><div class="n">5</div><div class="s">Search keywords</div><div class="d">Terms to find your reference paper on your own: no specific papers are suggested.</div></div>
+      <div class="item"><div class="n">6</div><div class="s">Feasibility and resources</div><div class="d">What can be done with limited resources, and where the cost grows.</div></div>
+    </div>
+  </div>
+</section>
+
+    <!-- 14_section_tracks.html -->
+<section class="s-section" data-background-color="#003366" data-section>
+  <div class="slide-head">
+    <div class="kicker">Part 2</div>
+    <h1 class="sec-title">The ten tracks</h1>
+  </div>
+  <div class="slide-body">
+    <p class="sec-statement">Ten broad themes. You choose one, and you design your own project within it.</p>
+    <p class="sec-text">Each track gives a scope, the requirements that a good project must meet and the pitfalls to avoid. The research question, the data, the models, the metrics and the experimental design are yours.</p>
+  </div>
+  <ol class="sec-ideas">
+    <li><span class="k">1</span>A scope, not an assignment</li>
+    <li><span class="k">2</span>Requirements that distinguish a good project</li>
+    <li><span class="k">3</span>Pitfalls to recognise and avoid</li>
+  </ol>
+</section>
+
+    <!-- 15_map.html -->
+<section class="s-map">
+  <div class="slide-head">
+    <div class="kicker">The tracks</div>
+  </div>
+  <div class="slide-body">
+    <div class="tiles">
+      <div class="tile"><div class="n">1</div><div class="t">Strategy and Negotiation</div><div class="d">Game theory and emergent behaviour in LLMs</div></div>
+      <div class="tile"><div class="n">2</div><div class="t">Fact-Checking and Retrieval</div><div class="d">Lexical vs semantic search with LLMs</div></div>
+      <div class="tile"><div class="n">3</div><div class="t">Interventions and Causality</div><div class="d">Measuring what changes in LLM behaviour</div></div>
+      <div class="tile"><div class="n">4</div><div class="t">Culture and Language</div><div class="d">Exploring the cultural sensitivity of LLMs</div></div>
+      <div class="tile"><div class="n">5</div><div class="t">Literature and Language</div><div class="d">LLMs as readers and as writers</div></div>
+      <div class="tile"><div class="n">6</div><div class="t">Inside the Model</div><div class="d">Mechanistic interpretability of a phenomenon</div></div>
+      <div class="tile"><div class="n">7</div><div class="t">Rules, States and Moves</div><div class="d">LLMs and board games</div></div>
+      <div class="tile"><div class="n">8</div><div class="t">Beyond Text</div><div class="d">Multimodal models</div></div>
+      <div class="tile"><div class="n">9</div><div class="t">Trust and Provenance</div><div class="d">Prompt injection, watermarking and detection</div></div>
+      <div class="tile"><div class="n">10</div><div class="t">Training on Generated Text</div><div class="d">Synthetic data and model collapse</div></div>
+    </div>
+  </div>
+</section>
+
+    <!-- 16_track01.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 1</div>
+    <div class="tk-title">Strategy and Negotiation</div>
+    <div class="tk-sub">Game theory and emergent behaviour in LLMs</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What strategies emerge when language models play formally defined games, and how do they compare with theory and with human behaviour?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Repeated games:</b> <span>do models cooperate, retaliate, forgive?</span></li>
+          <li><b>Bargaining and fairness:</b> <span>ultimatum, dictator, public goods</span></li>
+          <li><b>Information and deception:</b> <span>private information, cheap talk</span></li>
+          <li><b>Sensitivity to the setting:</b> <span>framing, persona, rounds, model size</span></li>
+          <li><b>Adaptation:</b> <span>to the opponent’s strategy, or a fixed disposition?</span></li>
+          <li><b>Populations and tournaments:</b> <span>scripted strategies, round-robin</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A formalised game:</b> <span>players, actions, information, payoffs</span></li>
+          <li><b>A point of comparison:</b> <span>a theoretical prediction or human data</span></li>
+          <li><b>Strategies at the centre:</b> <span>what emerges, how stable it is</span></li>
+          <li><b>Experimental rigour:</b> <span>many repetitions, seeds, statistical tests</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Chat models persuading each other, with no payoff and no formal game</li>
+          <li>Only win rates, without the strategies behind them</li>
+          <li>Strategies labelled by impression, not by a checkable criterion</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>repeated games, iterated prisoner’s dilemma, ultimatum game, bargaining, negotiation, Nash equilibrium, cheap talk, strategic reasoning, behavioural game theory, theory of mind, LLM agents, multi-agent systems, cooperation.</div>
+      <div><b>Feasibility and resources</b>Discrete actions and short horizons are cheap, with small open models or low-cost APIs. The cost grows with rounds, agents and repetitions: justify the sample size.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 17_track02.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 2</div>
+    <div class="tk-title">Fact-Checking and Retrieval</div>
+    <div class="tk-sub">Lexical vs semantic search with LLMs</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How far can we trust what is retrieved, and what changes between lexical and embedding-based retrieval when the goal is to verify a claim?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Lexical, dense or hybrid:</b> <span>which claims does each approach win?</span></li>
+          <li><b>Where the error comes from:</b> <span>retrieval or verification?</span></li>
+          <li><b>Robustness:</b> <span>contradictory, outdated, poisoned evidence; domain, language</span></li>
+          <li><b>Evidence vs model knowledge:</b> <span>what if they conflict?</span></li>
+          <li><b>Hard claims:</b> <span>negations, numbers, time, multi-hop, insufficient evidence</span></li>
+          <li><b>Domains:</b> <span>health, climate, economy, science</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>Retrieval evaluated separately:</b> <span>recall@k, nDCG apart from the verdict metrics</span></li>
+          <li><b>A serious lexical baseline:</b> <span>well configured, not a strawman</span></li>
+          <li><b>Error analysis at the centre:</b> <span>categorise the failures</span></li>
+          <li><b>At least one stress condition:</b> <span>poisoned corpus, domain or language shift, time</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Only end-to-end accuracy, concluding “dense is better” without why</li>
+          <li>A tuned dense model against an untuned lexical baseline</li>
+          <li>An LLM as the only judge of evidence, unchecked</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>fact-checking, claim verification, evidence retrieval, dense retrieval, BM25, hybrid retrieval, retrieval-augmented generation, hallucination, knowledge conflicts, corpus poisoning, out-of-domain retrieval, multi-hop verification, misinformation.</div>
+      <div><b>Feasibility and resources</b>Lexical indexes and small sentence encoders run on a laptop. The cost grows with large language models as verifiers: use a small model or a sample, and say so.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 18_track03.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 3</div>
+    <div class="tk-title">Interventions and Causality</div>
+    <div class="tk-sub">Measuring what changes in LLM behaviour</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What is the causal effect of an intervention (a prompt, a tuning step, a model change) on a measurable aspect of a model’s behaviour?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Prompt level:</b> <span>persona, language, framing, wording, order of examples</span></li>
+          <li><b>Training level:</b> <span>base vs instruction-tuned, fine-tuning, model size</span></li>
+          <li><b>Inference level:</b> <span>quantisation, decoding, context length</span></li>
+          <li><b>Outcomes:</b> <span>sycophancy, accuracy, calibration, refusals, style, bias</span></li>
+          <li><b>Heterogeneous effects:</b> <span>where is the effect larger or reversed?</span></li>
+          <li><b>Prompt optimisation:</b> <span>does an optimised prompt generalise?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A formalised design:</b> <span>treatment, control, outcome, unit, quantity to estimate</span></li>
+          <li><b>One change at a time:</b> <span>paired prompts, content controlled</span></li>
+          <li><b>A validly measured outcome:</b> <span>validated on a hand-annotated sample</span></li>
+          <li><b>Quantified uncertainty:</b> <span>intervals, paired tests, effect sizes; threats to validity</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>A few prompt variants, “one works better”, with no design or uncertainty</li>
+          <li>Conditions that differ in more than one respect</li>
+          <li>A causal effect on behaviour read as an explanation of the mechanism (Track 6)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>causal inference in NLP, treatment effect, average treatment effect, instruction tuning, base vs instruct models, prompt sensitivity, persona prompting, sycophancy, calibration, quantisation effects, paired experiments, bootstrap confidence intervals, behavioural evaluation.</div>
+      <div><b>Feasibility and resources</b>Base and instruction-tuned pairs of small open models and paired prompts on medium-size datasets run with little compute. The cost grows with models and repetitions: scale them to your resources.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 19_track04.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 4</div>
+    <div class="tk-title">Culture and Language</div>
+    <div class="tk-sub">Exploring the cultural sensitivity of LLMs</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How do language models represent, recognise and reproduce cultural differences, and how faithful is that representation?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Values and norms:</b> <span>compare the answers with survey data</span></li>
+          <li><b>Factual representation:</b> <span>does it match statistical reality? cite primary sources</span></li>
+          <li><b>Stereotypes:</b> <span>associations, omissions, imbalances</span></li>
+          <li><b>Everyday knowledge:</b> <span>food, customs, festivities, etiquette, proverbs</span></li>
+          <li><b>Language and pragmatics:</b> <span>register, politeness, metaphor, style</span></li>
+          <li><b>Prompt language vs content:</b> <span>and variation within a culture</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A precise exploratory question:</b> <span>and what would contradict your expectation</span></li>
+          <li><b>An external reference for the culture:</b> <span>surveys, corpora, annotators, official statistics</span></li>
+          <li><b>At least two cultures or languages:</b> <span>with a motivation, and declared limits</span></li>
+          <li><b>Several formulations and samplings:</b> <span>structured qualitative analysis, with a codebook</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Generalising from a handful of striking answers</li>
+          <li>Treating a country or a language as a homogeneous culture</li>
+          <li>An LLM that both produces and judges cultural content, with no human check</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>cultural alignment, cultural bias, cross-cultural values, World Values Survey, Hofstede dimensions, Moral Foundations Theory, stereotypes in language models, multilingual evaluation, culturally-aware NLP, everyday knowledge benchmarks, representation and erasure, low-resource languages.</div>
+      <div><b>Feasibility and resources</b>Prompts, benchmarks and public survey data work with small models, but you need reasonably good multilingual models: quality in under-represented languages is itself a result. Knowing languages other than English is an advantage.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 20_track05.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 5</div>
+    <div class="tk-title">Literature and Language</div>
+    <div class="tk-sub">LLMs as readers and as writers</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What do language models understand when they read literary texts, and what do they do when they write them?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Models as readers:</b> <span>characters, plot, tone, irony, long texts, intertextuality</span></li>
+          <li><b>Memorisation vs reading:</b> <span>well-known and unknown works</span></li>
+          <li><b>Models as writers:</b> <span>diversity, style, structure, originality</span></li>
+          <li><b>Imitation:</b> <span>an author, a genre, a period</span></li>
+          <li><b>Constraints and control:</b> <span>prompts, constraints, tuning</span></li>
+          <li><b>Evaluation:</b> <span>literary quality, creativity, human judgement</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A human point of comparison:</b> <span>authors, readers, annotations, judgements</span></li>
+          <li><b>A justified and validated measure:</b> <span>checked on a sample against human judgement</span></li>
+          <li><b>Control of memorisation:</b> <span>recent, little-known or unpublished texts</span></li>
+          <li><b>Systematic reading and rigour:</b> <span>explicit criteria, many samples</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>A few stylometric features and a classifier, with no question beyond “can we tell them apart?”</li>
+          <li>“Creativity” measured by a single unvalidated metric</li>
+          <li>Comprehension tested on canonical works the model has memorised</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>computational literary studies, narrative understanding, story generation, stylometry, authorship attribution, creativity evaluation, text diversity, long-context comprehension, literary text analysis, narrative structure, character tracking, memorisation, machine-generated text.</div>
+      <div><b>Feasibility and resources</b>Public-domain texts and short generations are cheap to process, even with small models. Mind the context window and work on excerpts. Copyright: use public-domain works or short excerpts, and cite your sources.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 21_track06.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 6</div>
+    <div class="tk-title">Inside the Model</div>
+    <div class="tk-sub">Mechanistic interpretability of a phenomenon</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How does a model implement a specific behaviour, and can we test our explanation with interventions on its internals?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Linguistic phenomena:</b> <span>agreement, coreference, negation, tense, number</span></li>
+          <li><b>Factual recall and relations:</b> <span>where does the model retrieve a fact?</span></li>
+          <li><b>Pattern copying and induction:</b> <span>in-context learning, repetition</span></li>
+          <li><b>Simple reasoning or arithmetic:</b> <span>which components compute?</span></li>
+          <li><b>Behavioural tendencies:</b> <span>sycophancy, refusal, sentiment</span></li>
+          <li><b>Representations:</b> <span>directions, subspaces, features: can they be manipulated?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A measurable phenomenon:</b> <span>controlled inputs, e.g. a logit difference</span></li>
+          <li><b>A falsifiable hypothesis:</b> <span>stated in advance, with what would refute it</span></li>
+          <li><b>Causal evidence:</b> <span>ablation, patching or steering, not only probes</span></li>
+          <li><b>Controls and declared limits:</b> <span>random components, corrupted inputs, many prompts</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Attention maps or probe accuracies presented as an explanation</li>
+          <li>A phenomenon with no clear, measurable outcome</li>
+          <li>A hypothesis verified on one single prompt template</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>mechanistic interpretability, circuits, activation patching, causal tracing, logit lens, probing, attribution, induction heads, sparse autoencoders, superposition, steering vectors, representation engineering, faithfulness of explanations.</div>
+      <div><b>Feasibility and resources</b>Small models (GPT-2 sized, Pythia, a few hundred million parameters) and libraries such as TransformerLens are enough. The cost grows quickly with larger models. Unlike Track 3, causality here is inside the model.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 22_track07.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 7</div>
+    <div class="tk-title">Rules, States and Moves</div>
+    <div class="tk-sub">LLMs and board games</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">Can language models understand, track and reason about a game described in natural language?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Rulebook comprehension:</b> <span>questions, ambiguities, inconsistencies</span></li>
+          <li><b>State tracking:</b> <span>over a whole match</span></li>
+          <li><b>Legal moves and quality of play:</b> <span>against reference engines or agents</span></li>
+          <li><b>Formalisation:</b> <span>from a rulebook to an executable description</span></li>
+          <li><b>Modified rules:</b> <span>counterfactual variants of known games</span></li>
+          <li><b>Game design:</b> <span>new games, playtesting in simulation</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>An executable ground truth:</b> <span>a simulator or a rule validator</span></li>
+          <li><b>Control of memorisation:</b> <span>lesser-known games, variants with modified rules</span></li>
+          <li><b>Separate metrics:</b> <span>rules, state and strategic quality</span></li>
+          <li><b>Experimental rigour:</b> <span>many games or states, errors classified by type</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Only famous games: memorisation mistaken for understanding</li>
+          <li>Legality or quality judged by reading a few transcripts</li>
+          <li>“Fun” or “balance” with no simulation or human assessment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>game rule understanding, state tracking, board game benchmarks, general game playing, game description language, Ludii, procedural content generation, game design with LLMs, counterfactual rules, world models, Othello, game simulators.</div>
+      <div><b>Feasibility and resources</b>Game states are short texts and the simulator runs locally: small models are enough. The cost depends on the number of games and moves. Check the licence and availability of rulebooks and data. For interaction between players, see Track 1.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 23_track08.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 8</div>
+    <div class="tk-title">Beyond Text</div>
+    <div class="tk-sub">Multimodal models</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What does a non-textual modality add to a model, and does the model actually use it?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Does it use the image or the sound?</b> <span>or linguistic shortcuts?</span></li>
+          <li><b>Conflicts between modalities:</b> <span>text and image disagree</span></li>
+          <li><b>Sensitivity to the input:</b> <span>resolution, cropping, noise, order</span></li>
+          <li><b>Cultural and social representation:</b> <span>see Track 4</span></li>
+          <li><b>Multimodal fact-checking:</b> <span>see Track 2</span></li>
+          <li><b>Documents and charts:</b> <span>tables, figures, layouts</span></li>
+          <li><b>Speech and audio:</b> <span>accents, languages, noise</span></li>
+          <li><b>Joint representations:</b> <span>where does the alignment fail?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>The contribution of the modality isolated:</b> <span>text-only baseline, ablations</span></li>
+          <li><b>A question about the modality:</b> <span>not only about the benchmark</span></li>
+          <li><b>Validated evaluation:</b> <span>not an unchecked LLM judgement</span></li>
+          <li><b>Declared data and licences:</b> <span>sources, licences, privacy</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Benchmark accuracy of an off-the-shelf model, with no hypothesis</li>
+          <li>Visual understanding confused with language priors</li>
+          <li>Images of people or personal data, ignoring licences and privacy</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>vision-language models, multimodal LLMs, CLIP, image captioning, visual question answering, multimodal hallucination, modality conflict, language priors, document understanding, speech recognition, audio-language models, cross-modal alignment, multimodal robustness.</div>
+      <div><b>Feasibility and resources</b>The most computationally demanding track. Small models (CLIP or SigLIP, Whisper, vision-language models of a few billion parameters) and data subsets run on free-tier GPUs or modest hardware; the cost grows quickly with model size and data volume.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 24_track09.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 9</div>
+    <div class="tk-title">Trust and Provenance</div>
+    <div class="tk-sub">Prompt injection, watermarking and detection</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">How robust are the mechanisms that protect language models and identify what they generate?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Prompt injection:</b> <span>direct and indirect: documents, tools, agents</span></li>
+          <li><b>Watermarking:</b> <span>detectability, quality, robustness to paraphrase</span></li>
+          <li><b>Detection of generated text:</b> <span>reliability, languages, non-native writers</span></li>
+          <li><b>Memorisation and privacy:</b> <span>membership inference, extraction</span></li>
+          <li><b>Poisoning and backdoors:</b> <span>tampered training data or corpora</span></li>
+          <li><b>Safety and utility trade-offs:</b> <span>what does a defence cost?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>An explicit threat model:</b> <span>who attacks, what they know and can do</span></li>
+          <li><b>A safety and utility trade-off:</b> <span>attack success and loss on the legitimate task</span></li>
+          <li><b>Correct detection metrics:</b> <span>true positive rate at a low fixed false positive rate</span></li>
+          <li><b>An adaptive adversary, in a sandbox:</b> <span>public benchmarks, never real third-party systems</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>A defence evaluated only against attacks not designed against it</li>
+          <li>Detection accuracy on a balanced set, ignoring false positives on human text</li>
+          <li>A defence called robust without measuring the loss in utility</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>prompt injection, indirect prompt injection, jailbreaks, LLM agents security, watermarking language models, machine-generated text detection, paraphrase attacks, membership inference, training data extraction, data poisoning, backdoors, adaptive attacks, AI-generated text detection fairness.</div>
+      <div><b>Feasibility and resources</b>Watermarking with small open models and injection experiments on public benchmarks are accessible. Ethics: sandboxed environments or public benchmarks only, no tests on real systems of third parties, no operational attack tools.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 25_track10.html -->
+<section class="s-track">
+  <div class="slide-head">
+    <div class="kicker">Track 10</div>
+    <div class="tk-title">Training on Generated Text</div>
+    <div class="tk-sub">Synthetic data and model collapse</div>
+  </div>
+  <div class="slide-body">
+    <p class="tk-q">What happens when models learn from text produced by other models, and when does it help or harm?</p>
+    <div class="tk-cols">
+      <div class="tk-col fragment" data-fragment-index="0">
+        <div class="col-label">Possible perspectives</div>
+        <ul>
+          <li><b>Recursive training:</b> <span>over several generations</span></li>
+          <li><b>Real and synthetic data:</b> <span>proportions; replacement vs accumulation</span></li>
+          <li><b>What degrades:</b> <span>diversity, calibration, style, bias, minorities</span></li>
+          <li><b>Prevention:</b> <span>filtering and selection of synthetic data</span></li>
+          <li><b>Contaminated corpora:</b> <span>web corpora with generated text</span></li>
+          <li><b>Distillation, self-generated data:</b> <span>when does a stronger source help?</span></li>
+        </ul>
+      </div>
+      <div class="tk-col fragment" data-fragment-index="1">
+        <div class="col-label">A good project has</div>
+        <ul>
+          <li><b>A controlled and declared loop:</b> <span>generations, quantity, scheme</span></li>
+          <li><b>A real-data baseline at the same budget:</b> <span>to separate the effect of synthetic data</span></li>
+          <li><b>Metrics beyond perplexity:</b> <span>diversity, tails, divergence, task utility</span></li>
+          <li><b>Systematic variation and realism:</b> <span>proportions, seeds, uncertainty</span></li>
+        </ul>
+      </div>
+      <div class="tk-col warn fragment" data-fragment-index="2">
+        <div class="col-label warn">Common pitfalls</div>
+        <ul>
+          <li>Degradation shown in an unrealistic setting, with no discussion</li>
+          <li>Reporting only perplexity</li>
+          <li>A baseline that uses a different amount of data</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tk-foot">
+      <div><b>Search keywords</b>model collapse, synthetic data, recursive training, self-consuming generative models, data contamination, distillation, self-instruct, diversity of generated text, tail distribution, data mixing, training on AI-generated data.</div>
+      <div><b>Feasibility and resources</b>Small models (GPT-2 sized or distilled, or small ones trained from scratch) and reduced datasets are enough. The cost grows with the number of generations: scale it to your resources and justify it.</div>
+    </div>
+  </div>
+</section>
+
+    <!-- 26_near.html -->
+<section class="s-near s-head-tight">
+  <div class="slide-head">
+    <div class="kicker">Choosing a track</div>
+  </div>
+  <div class="slide-body">
+    <p class="stmt">Some tracks are neighbours: know where each one ends.</p>
+    <div class="pairs">
+      <div class="pair fragment" data-fragment-index="0"><div class="k">1 · 7</div><div class="t"><b>Interactive strategy or rules and state.</b> Track 1 studies strategic behaviour between players; Track 7 focuses on the rules and the state of the game, with an executable ground truth.</div></div>
+      <div class="pair fragment" data-fragment-index="1"><div class="k">3 · 6</div><div class="t"><b>Behaviour or mechanism.</b> Track 3 estimates causal effects on the behaviour of the model (input and output); Track 6 studies causality inside the model, in its components.</div></div>
+      <div class="pair fragment" data-fragment-index="2"><div class="k">2 · 8</div><div class="t"><b>Multimodal fact-checking.</b> Claims with images, charts or tables sit between the retrieval track and the multimodal one.</div></div>
+      <div class="pair fragment" data-fragment-index="3"><div class="k">4 · 8</div><div class="t"><b>Culture in images and sound.</b> How models depict or describe people, places and practices across cultures links cultural sensitivity and multimodal models.</div></div>
+      <div class="pair fragment" data-fragment-index="4"><div class="k">2 · 9</div><div class="t"><b>Poisoning and backdoors.</b> What happens when the training data or a retrieval corpus is tampered with is a theme of both Track 9 and Track 2.</div></div>
+    </div>
+  </div>
+</section>
+
+    <!-- 27_closing.html -->
+<section class="s-section" data-background-color="#003366" data-section>
+  <div class="slide-head">
+    <div class="kicker">Before you start</div>
+    <h1 class="sec-title">Your question, your project</h1>
+  </div>
+  <div class="slide-body">
+    <p class="sec-statement">Choose a track, choose a reference paper, and ask your own research question.</p>
+    <p class="sec-text">Prepare for the theory questions independently of the project: they cover the whole programme of the course, and they are a necessary condition for a passing grade.</p>
+    <p class="sec-contact">Natural Language Processing · Prof. Alfio Ferrara, Dott. Sergio Picascia, Dott.ssa Elisabetta Rocchetti<br>Department of Computer Science, Università degli Studi di Milano · Room 7012, via Celoria 18, Milano · alfio.ferrara@unimi.it</p>
+  </div>
+  <ol class="sec-ideas">
+    <li><span class="k">1</span>Choose a track</li>
+    <li><span class="k">2</span>Choose a reference paper</li>
+    <li><span class="k">3</span>Formulate your own research question</li>
+  </ol>
+</section>
+
+  </div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>
